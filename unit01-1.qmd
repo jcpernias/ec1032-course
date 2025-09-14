@@ -1,19 +1,38 @@
 ---
-title: "Combinación de cortes transversales"
+title: Combinación de cortes transversales
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
 format: 
   revealjs:
     embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    progress: false
+    hide-inactive-cursor: true
 editor: visual
 lang: es
 ---
 
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Capítulo 13, secciones 1 y 2.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 13.
+
 ## Estructura de los datos
 
--   Combinación de cortes transversales (*pooled cross-sections*).
+-   Combinación de cortes transversales, *pooled cross-sections*.
 
--   Cada corte transversal es una muestra aleatoria de una población.
+-   Cada corte transversal:
 
--   Cada corte transversal corresponde a un periodo diferente.
+    -   Es una muestra aleatoria de una población.
+
+    -   Corresponde a un periodo diferente.
 
 ## Consecuencias para el estimador OLS
 
