@@ -1,0 +1,31 @@
+---
+title: Calidad del aire y precios de las casas
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+```{r}
+#| echo: false
+
+library(wooldridge)
+source("regr_table.r")
+# options(tinytable_tt_theme = "revealjs")
+options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
+```
+
+## Regresión después
+
+```{r}
+mod1 <- lm(rprice ~ y81 * nearinc + age + agesq, data = kielmc)
+regr_table(mod1, vcov = "HC2")
+```
