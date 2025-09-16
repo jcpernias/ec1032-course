@@ -1,5 +1,5 @@
 ---
-title: Calidad del aire y precios de las casas
+title: Instalación de un incinerador de basura y mercado inmobiliario
 author: EC1032 --- Econometría II
 institute: Curso 2025-2026
 format: 
@@ -18,14 +18,133 @@ lang: es
 #| echo: false
 
 library(wooldridge)
+library(tidyverse)
 source("regr_table.r")
 # options(tinytable_tt_theme = "revealjs")
 options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
 ```
 
-## Regresión después
+## Introducción
+
+-   [Kiel y McClain (1995)](https://doi.org/10.1006/jeem.1995.1016) analizan como la construcción de un incinerador afectó a los precios de venta de las casas situadas cerca de él.
+
+-   Se usarán parte de los datos de ese trabajo para verificar el posible efecto causal.
+
+## Descripción de los datos
+
+-   Fusión de dos cortes transversales: 1978, antes de que empezaran los rumores de la futura construcción, y 1981, cuando se inició la construcción.
+
+-   Dos grupos de casas: las situadas cerca del lugar de la construcción, grupo de tratamiento, y las situadas lejos, grupo de control.
+
+## Variables 
+
+-   **y81**: variable ficticia, 1 si la venta se produce en 1981.
+
+-   **nearinc**: variable ficticia, 1 si la casa está situada cerca del lugar de construcción del incinerador.
+
+-   **rprice**: precio de venta, en dólares de 1978.
+
+-   **age**: edad de la casa, en años.
+
+## Estadísticos descriptivos
 
 ```{r}
-mod1 <- lm(rprice ~ y81 * nearinc + age + agesq, data = kielmc)
+kielmc |> 
+  group_by(y81, nearinc) |> 
+  summarise(N = n(), `Avg. rprice` = mean(rprice), 
+            `Avg. age` = mean(age), .groups = "drop") |> 
+  tt(width = 0.75 * rep(1, 5)/5) |> 
+  format_tt(j = 4:5, digits = 2) |> 
+  style_tt(j = 1:5, align = "r") |> 
+  format_tt(quarto = TRUE)
+  
+```
+
+## Regresión con la muestra de 1981
+
+```{r}
+mod1 <- lm(rprice ~ nearinc, data = kielmc, subset = y81 == 1)
 regr_table(mod1, vcov = "HC2")
+```
+
+## Regresión con la muestra de 1978
+
+```{r}
+mod2 <- lm(rprice ~ nearinc, data = kielmc, subset = y81 == 0)
+regr_table(mod2, vcov = "HC2")
+```
+
+## Diferencias en diferencias
+
+```{r}
+mod3 <- lm(rprice ~ y81* nearinc, data = kielmc)
+regr_table(mod3, vcov = "HC2")
+```
+
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Datos (medias por grupo y periodo)
+df <- tribble(
+  ~grupo,         ~t, ~media,
+  "tratamiento",        1,   63.693,
+  "tratamiento",        2,   70.619,
+  "control",    1,   82.517,
+  "control",    2,   101.308,
+)
+
+# Colores (ajústalos a tu gusto)
+colores <- c(control = "darkgreen", tratamiento = "darkblue")
+
+# Gráfico
+gr0 <- ggplot(df, aes(x = t, y = media, color = grupo, group = grupo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  scale_color_manual(values = colores, guide = "legend") +
+  scale_y_continuous(limits = c(60, 110), breaks = seq(60, 110, 10)) +
+  scale_x_continuous(
+    breaks = c(1, 2),
+    labels = c("1978", "1981")
+  ) +
+  labs(x = "Años", y = "Precio real medio") +
+  theme_classic(base_size = 13) +
+  theme(
+    axis.title.x = element_text(margin = margin(t = 12)),
+    axis.title.y = element_text(margin = margin(r = 12))
+  )
+
+gr0
+```
+
+Los precios reales medios crecen tanto en el grupo de control como en el grupo de tratamiento.
+
+---
+
+```{r}
+df2 <- tribble(
+  ~grupo,         ~t, ~media,
+  "contra",       1,   63.693,
+  "contra",       2,   63.693 + 101.308 - 82.517
+)
+
+gr0 + geom_line(data = df2,
+                aes(x = t, y = media), 
+                color = "darkblue",
+                linetype = "dashed", size = 0.8) +
+  theme(plot.background = 
+          element_rect(fill = 'transparent', color = NA),
+        panel.background = 
+          element_rect(fill = 'transparent'))
+```
+
+Pero los precios crecen menos en el grupo de tratamiento.
+
+## Controles adicionales
+
+```{r}
+mod4 <- update(mod3, . ~ . + age + agesq)
+regr_table(mod4, vcov = "HC2")
 ```
