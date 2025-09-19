@@ -36,7 +36,7 @@ options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
 
 -   Dos grupos de casas: las situadas cerca del lugar de la construcción, grupo de tratamiento, y las situadas lejos, grupo de control.
 
-## Variables 
+## Variables
 
 -   **y81**: variable ficticia, 1 si la venta se produce en 1981.
 
@@ -81,7 +81,7 @@ mod3 <- lm(rprice ~ y81* nearinc, data = kielmc)
 regr_table(mod3, vcov = "HC2")
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 library(ggplot2)
@@ -121,7 +121,7 @@ gr0
 
 Los precios reales medios crecen tanto en el grupo de control como en el grupo de tratamiento.
 
----
+------------------------------------------------------------------------
 
 ```{r}
 df2 <- tribble(
