@@ -1,0 +1,81 @@
+---
+title: "Laboratorio Tema 1"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: true
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## Evolución de los salarios
+
+### Datos
+
+El fichero `wages78_85.gdt` contiene información sobre salarios y características de dos muestras aleatorias de trabajadores estadounidenses, obtenidas en los años 1978 y 1985.
+
+-   `wage`: salario por hora, dólares.
+
+-   `year`: año al que corresponde la observación, 78 o 85.
+
+-   `educ`: años de educación.
+
+-   `female`: variable ficticia, 1 para las observaciones que corresponden a mujeres.
+
+-   `union`: variable ficticia, 1 para los trabajadores afiliados a un sindicato.
+
+Para completar esta actividad es necesario crear algunas variables adicionales:
+
+-   `l_wage`: logaritmo del salario por hora.
+
+-   `y85`: variable ficticia, 1 para las observaciones de 1985.
+
+-   `y85_educ`, `y85_female`, `y85_union`: interacciones de la variable `y85` con las variables `educ`, `female` y `union`, respectivamente.
+
+### Instrucciones
+
+1.  Estime un modelo de regresión donde la variable dependiente es el logaritmo del salario y las explicativas son `y85`, `educ`, `female`, y `union`. Presente la tabla de regresión con errores típicos robustos a heteroscedasticidad.
+2.  interprete el coeficiente de la variable y85. Determine su significación para $\alpha = 5\%$.
+3.  Añada al modelo de regresión las interacciones de y85 con las otras variables explicativas. Obtenga un contraste robusto a heteroscedasticidad de la hipótesis de que las pendientes de `educ`, `female` y `union` se mantienen constantes a lo largo del tiempo. Utilice un nivel de significación $\alpha = 5\%$.
+
+## Cobertura de las prestaciones por accidente laboral
+
+### Datos
+
+Para determinar la influencia de un cambio en las prestaciones por accidentes laborales sobre la duración de las bajas, se utilizan dos muestras aleatorias obtenidas en el estado de Kentucky antes y después de un cambio normativo. Como consecuencia de ese cambio, aumentaron considerablemente las prestaciones de los trabajadores con salarios altos mientras que se mantuvieron constantes las de los trabajadores de salarios bajos.
+
+El fichero `inj.gdt` contiene las siguientes variables:
+
+-   `durat`: duración de la baja, semanas.
+
+-   `after`: variable ficticia, 1 para las observaciones posteriores al cambio normativo.
+
+-   `high`: variable ficticia, 1 para los trabajadores con salarios altos.
+
+-   `male`: variable ficticia, 1 para los hombres.
+
+-   `inj_head`, `inj_neck`, ..., `inj_occdis`: variables ficticias para los distintos tipos de lesiones. Categoría omitida: otras lesiones.
+
+-   `manuf`, `constr`: variables ficticias para los sectores económicos. Categoría omitida: servicios.
+
+Se necesitarán también las siguientes variables:
+
+-   `l_durat`: logaritmo de `durat`.
+
+-   `after_high`: interacción de `after` y `high.`
+
+### Instrucciones
+
+1.  Utilice un diseño de diferencias en diferencias para examinar el efecto del cambio normativo sobre la duración de las bajas de los trabajadores de salarios altos. Utilice `l_durat` como variable dependiente. Presente la tabla con errores típicos robustos a heteroscedasticidad.
+2.  Interprete las estimaciones de cada una de las pendientes. ¿Son significativas individualmente al $5\%$?
+3.  Añada el resto de variables a la regresión. ¿Se aprecian cambios importantes en las estimaciones de los parámetros o en sus errores típicos?
+4.  ¿Qué conclusión se puede extraer de las regresiones realizadas acerca de la influencia del cambio normativo en la duración de las bajas?
