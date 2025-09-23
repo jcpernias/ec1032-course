@@ -8,6 +8,7 @@ format:
     theme: beige
     css: custom.css
     toc: true
+    toc-depth: 2
     progress: false
     hide-inactive-cursor: true
 editor: visual
@@ -17,15 +18,28 @@ lang: es
 ```{r}
 #| echo: false
 
-library(wooldridge)
 library(tidyverse)
-library(plm)
+library(readxl)
 
-pvcov <- \(x) plm::vcovHC(x, method = "arellano", type = "HC1")
+library(knitr)
 
+tt_theme <- \(x) theme_revealjs(x, fontsize = .65)
+if (!is.null(opts_knit$get("quarto.version"))) {
+  tt_theme <- function(x) {
+    theme_revealjs(x, fontsize = .65) |> 
+      tt_format(quarto = TRUE)
+  }  
+}
+  
 source("regr_table.r")
 # options(tinytable_tt_theme = "revealjs")
-options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
+options(tinytable_tt_theme = tt_theme,
+        tinytable_format_num_fmt = "decimal",
+        tinytable_format_num_zero = TRUE)
+
+library(plm)
+pvcov <- \(x) plm::vcovHC(x, method = "arellano", type = "HC1")
+
 ```
 
 ## Bibliografía
@@ -97,21 +111,74 @@ options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
 
 ### Ejemplo
 
-```{r}
-NT <- NROW(crime2)
-T <- 2
-N <- NT / T
+`crime2.xlsx`: 46 ciudades en los años 1982 y 1987.
 
-db <- crime2 |>
-  mutate(city = rep(1:N, each = 2)) |> 
-  select(city, year, crmrte, unem, d87) |>
+-   `crime_rate`: tasa de criminalidad.
+
+-   `unem`: tasa de desempleo.
+
+Primeras 6 observaciones:
+
+```{r}
+db <- read_xlsx("data/crime2.xlsx") |>
   pdata.frame(index = c("city", "year"),
               drop.index = FALSE, row.names = FALSE)
 
-head(db, n = 10) |> 
+head(db, n = 6) |> 
   tt(width = 0.75 * rep(1, 5)/5) |> 
-  format_tt(j = 3:4, digits = 2) |> 
-  style_tt(j = 1:5, align = "r") |> 
-  format_tt(quarto = TRUE)
+  format_tt(j = 1:5, digits = 0) |> 
+  format_tt(j = 4, digits = 1) |> 
+  style_tt(j = 1:5, align = "r")
 
+```
+
+------------------------------------------------------------------------
+
+-   Modelo de efectos inobservables: $$
+    crime\_rate_{it} = \alpha + \delta d87_t + 
+    \beta unem_{it} + a_i + u_{it}.
+    $$
+
+-   Ciudades: $i = 1,\dots, 49$.
+
+-   Años: $t = 1982, 1987$.
+
+## Estimación
+
+-   ¿Cómo estimar $\beta$?
+
+-   Una posibilidad consiste en combinar las observaciones de los dos años y estimar el modelo por MCO.
+
+-   Reescribimos el modelo: $$
+    crime\_rate_{it} = \alpha + \delta d87_t +
+    \beta unem_{it} + v_{it}.
+    $$ donde $v_{it} = a_i + u_{it}$ es el **error compuesto**.
+
+------------------------------------------------------------------------
+
+Estimación MCO con la muestra combinada (*pooled OLS*):
+
+```{r}
+mod_pool <- lm(crime_rate ~ d87 + unem, data = db)
+regr_table(mod_pool) 
+```
+
+Produce estimaciones inconsistentes si las variables explicativas están correlacionadas con $a_i$.
+
+------------------------------------------------------------------------
+
+### Estimación en primera diferencia
+
+-   ¿Cómo tratar la posible correlación de las explicativas y los efectos individuales?
+
+-   Al tomar la **primera diferencia** del modelo se elimina $a_i$: $$ 
+    \Delta crime\_rate_{i} =  \delta +
+    \beta \Delta unem_{i} + \Delta u_{i}.
+    $$
+
+------------------------------------------------------------------------
+
+```{r}
+mod_fd <- plm(crime_rate ~ unem, data = db, model = "fd")
+regr_table(mod_fd) 
 ```

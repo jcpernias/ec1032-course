@@ -47,7 +47,8 @@ regr_table <- function(mod, vcov = NULL) {
   }
 
   line1 <-
-    glue("{method}. Dep. variable: {depvar}. Observations: {N}.")
+    glue("Dep. variable: {depvar}. Observations: {N}.")
+    # glue("{method}. Dep. variable: {depvar}. Observations: {N}.")
   ## TODO: Add line about robust SEs if vcov is not the default
   line2 <- NULL
   if (!is.null(vcov)) {
@@ -57,8 +58,8 @@ regr_table <- function(mod, vcov = NULL) {
     glue("Residual standard error: {format_tt(ser, digits = 3)} on {df} degrees of freedom.")
   line4 <-
     glue("R-squared: {format_tt(R2, digits = 2)}, adjusted R-squared: {format_tt(adj_R2, digits = 2)}.")
-  line5 <-
-    glue("{Flabel}: {format_tt(Fstat, digits = 2)} on {num_df} and {df} d.f.,  p-value: {fmt_pval(Fpv)}.")
+  #line5 <-
+  #  glue("{Flabel}: {format_tt(Fstat, digits = 2)} on {num_df} and {df} d.f.,  p-value: {fmt_pval(Fpv)}.")
 
   par$Parameter <- c("Constant", par$Parameter[-1])
 
@@ -66,7 +67,7 @@ regr_table <- function(mod, vcov = NULL) {
   par[ , in_names] |>
     setNames(out_names) |>
     tt(width = 0.9,
-       notes = c(line1, line2, line3, line4, line5)) |>
+       notes = c(line1, line2, line3, line4)) |>
     style_tt(j = 2:5, align = "r") |>
     format_tt(j = out_names[2:3], digits = 3) |>
     format_tt(j = out_names[4], digits = 2) |>
