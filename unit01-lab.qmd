@@ -44,7 +44,7 @@ Para completar esta actividad es necesario crear algunas variables adicionales:
 ### Instrucciones
 
 1.  Estime un modelo de regresión donde la variable dependiente es el logaritmo del salario y las explicativas son `y85`, `educ`, `female`, y `union`. Presente la tabla de regresión con errores típicos robustos a heteroscedasticidad.
-2.  interprete el coeficiente de la variable y85. Determine su significación para $\alpha = 5\%$.
+2.  Interprete el coeficiente de la variable y85. Determine su significación para $\alpha = 5\%$.
 3.  Añada al modelo de regresión las interacciones de y85 con las otras variables explicativas. Obtenga un contraste robusto a heteroscedasticidad de la hipótesis de que las pendientes de `educ`, `female` y `union` se mantienen constantes a lo largo del tiempo. Utilice un nivel de significación $\alpha = 5\%$.
 
 ## Cobertura de las prestaciones por accidente laboral
