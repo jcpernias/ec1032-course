@@ -14,6 +14,16 @@ db <- crime2 |>
 
 head(db, n = 10)
 
+mod_t87 <- lm(crmrte ~ unem, data = db,
+              subset = year == 87)
+summary(mod_t87)
+
+
+mod_pool <- lm(crmrte ~ d87 + unem, data = db)
+summary(mod_pool)
+
+
+
 mod_fd <- plm(crmrte ~ unem, data = db, model = "fd")
 summary(mod_fd)
 summary(mod_fd, vcov = pvcov)
