@@ -1,0 +1,13 @@
+---
+title: "Equation test"
+format: 
+  revealjs:
+    html-math-method: katex
+    embed-resources: true
+editor: visual
+---
+
+$$
+\newcommand{\cse}[2]{\underset{\displaystyle (#2)}{#1}}
+y_i = \cse{18.2}{11.5} + \cse{3.5}{1.5} x_i + \hat{u}_i
+$$
