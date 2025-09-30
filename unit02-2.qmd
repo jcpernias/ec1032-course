@@ -160,7 +160,7 @@ lang: es
     \beta x_{it} + v_{it}
     $$donde $v_{it} = a_i + u_{it}$.
 
--   La presencia de $a_i$ en el error compuesto genera autocorrelación en $u_{it}$.
+-   La presencia de $a_i$ en el error compuesto genera autocorrelación en $v_{it}$.
 
 ------------------------------------------------------------------------
 
