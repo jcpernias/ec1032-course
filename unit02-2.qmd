@@ -1,0 +1,204 @@
+---
+title: Datos de panel (II)
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+library(readxl)
+
+library(knitr)
+
+tt_theme <- \(x) theme_revealjs(x, fontsize = .65)
+if (!is.null(opts_knit$get("quarto.version"))) {
+  tt_theme <- function(x) {
+    theme_revealjs(x, fontsize = .65) |> 
+      tt_format(quarto = TRUE)
+  }  
+}
+  
+source("regr_table.r")
+# options(tinytable_tt_theme = "revealjs")
+options(tinytable_tt_theme = tt_theme,
+        tinytable_format_num_fmt = "decimal",
+        tinytable_format_num_zero = TRUE)
+
+library(plm)
+pvcov <- \(x) plm::vcovHC(x, method = "arellano", type = "HC1")
+
+```
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Capítulo 13, secciones 3 a 5, y capítulo 14.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 10.
+
+## Datos de panel con más de dos periodos
+
+-   En un **panel de datos** se sigue a las *mismas unidades* (trabajadores, familias, empresas, ciudades, provincias, etc.) en diferentes periodos temporales.
+
+-   Por ejemplo, se selecciona una muestra aleatoria de trabajadores y, año tras año, se obtiene información de los mismos trabajadores.
+
+------------------------------------------------------------------------
+
+![MCO en la muestra combinada](img/pool.png)
+
+------------------------------------------------------------------------
+
+![Panel: primeras diferencias](img/fd.png)
+
+------------------------------------------------------------------------
+
+![Panel: efectos fijos](img/fe.png)
+
+------------------------------------------------------------------------
+
+![Panel: efectos aleatorios](img/re.png)
+
+------------------------------------------------------------------------
+
+![Panel: efectos aleatorios (contrastes asociados)](img/re2.png)
+
+------------------------------------------------------------------------
+
+-   En un **panel equilibrado** (*balanced*) se obtiene información de las mismas unidades en todos los periodos disponibles.
+
+-   En los **paneles incompletos** (*unbalanced*) no hay observaciones de todas las unidades en algunos periodos.
+
+-   Diseños más complejos siguen a los individuos durante un número fijo de periodos, tras lo que se reemplazan por otros individuos.
+
+------------------------------------------------------------------------
+
+-   Los datos de panel permiten controlar la **heterogeneidad inobservable**: características que difieren de individuo a individuo pero se mantienen constantes a lo largo del tiempo.
+
+-   Las observaciones de un panel no son independientes en el tiempo.
+
+## Modelo de efectos inobservables
+
+-   Caso más simple: sólo dos periodos temporales, $t = 1, 2$, y $N$ unidades.
+
+-   Modelo con una variable explicativa: $$
+    y_{it} = \alpha + \delta d2_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1,2$.
+
+------------------------------------------------------------------------
+
+### Variables observables
+
+-   Modelo con una variable explicativa: $$
+    y_{it} = \alpha + \delta d2_t + 
+    \beta x_{it} + a_i + u_{it}.
+    $$
+
+-   Las variables $y_{it}$ y $x_{it}$ tienen variación tanto individual como temporal.
+
+-   La variable ficticia $d2_t$ es igual a $1$ cuando $t = 2$. Sólo tiene variación temporal.
+
+------------------------------------------------------------------------
+
+### Variables inobservables
+
+-   Modelo con una variable explicativa: $$
+    y_{it} = \alpha + \delta d2_t + 
+    \beta x_{it} + a_i + u_{it}.
+    $$
+
+-   La variable $a_i$ es un **efecto inobservable**, específico de cada individuo y que no cambia en el tiempo.
+
+-   El **error idiosincrático**, $u_{it}$, cambia tanto con $i$ como con $t$.
+
+------------------------------------------------------------------------
+
+### Ejemplo
+
+`crime2.xlsx`: 46 ciudades en los años 1982 y 1987.
+
+-   `crime_rate`: tasa de criminalidad.
+
+-   `unem`: tasa de desempleo.
+
+Primeras 6 observaciones:
+
+```{r}
+db <- read_xlsx("data/crime2.xlsx") |>
+  pdata.frame(index = c("city", "year"),
+              drop.index = FALSE, row.names = FALSE)
+
+head(db, n = 6) |> 
+  tt(width = 0.75 * rep(1, 5)/5) |> 
+  format_tt(j = 1:5, digits = 0) |> 
+  format_tt(j = 4, digits = 1) |> 
+  style_tt(j = 1:5, align = "r")
+
+```
+
+------------------------------------------------------------------------
+
+-   Modelo de efectos inobservables: $$
+    crime\_rate_{it} = \alpha + \delta d87_t + 
+    \beta unem_{it} + a_i + u_{it}.
+    $$
+
+-   Ciudades: $i = 1,\dots, 49$.
+
+-   Años: $t = 1982, 1987$.
+
+## Estimación
+
+-   ¿Cómo estimar $\beta$?
+
+-   Una posibilidad consiste en combinar las observaciones de los dos años y estimar el modelo por MCO.
+
+-   Reescribimos el modelo: $$
+    crime\_rate_{it} = \alpha + \delta d87_t +
+    \beta unem_{it} + v_{it}.
+    $$ donde $v_{it} = a_i + u_{it}$ es el **error compuesto**.
+
+------------------------------------------------------------------------
+
+Estimación MCO con la muestra combinada (*pooled OLS*):
+
+```{r}
+mod_pool <- lm(crime_rate ~ d87 + unem, data = db)
+regr_table(mod_pool) 
+```
+
+Produce estimaciones inconsistentes si las variables explicativas están correlacionadas con $a_i$.
+
+------------------------------------------------------------------------
+
+### Estimación en primera diferencia
+
+-   ¿Cómo tratar la posible correlación de las explicativas y los efectos individuales?
+
+-   Al tomar la **primera diferencia** del modelo se elimina $a_i$: $$ 
+    \Delta crime\_rate_{i} =  \delta +
+    \beta \Delta unem_{i} + \Delta u_{i}.
+    $$
+
+------------------------------------------------------------------------
+
+```{r}
+mod_fd <- plm(crime_rate ~ unem, data = db, model = "fd")
+regr_table(mod_fd) 
+```
