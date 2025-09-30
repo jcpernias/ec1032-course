@@ -15,33 +15,6 @@ editor: visual
 lang: es
 ---
 
-```{r}
-#| echo: false
-
-library(tidyverse)
-library(readxl)
-
-library(knitr)
-
-tt_theme <- \(x) theme_revealjs(x, fontsize = .65)
-if (!is.null(opts_knit$get("quarto.version"))) {
-  tt_theme <- function(x) {
-    theme_revealjs(x, fontsize = .65) |> 
-      tt_format(quarto = TRUE)
-  }  
-}
-  
-source("regr_table.r")
-# options(tinytable_tt_theme = "revealjs")
-options(tinytable_tt_theme = tt_theme,
-        tinytable_format_num_fmt = "decimal",
-        tinytable_format_num_zero = TRUE)
-
-library(plm)
-pvcov <- \(x) plm::vcovHC(x, method = "arellano", type = "HC1")
-
-```
-
 ## Bibliografía
 
 -   Básica:
@@ -54,151 +27,172 @@ pvcov <- \(x) plm::vcovHC(x, method = "arellano", type = "HC1")
 
 ## Datos de panel con más de dos periodos
 
--   En un **panel de datos** se sigue a las *mismas unidades* (trabajadores, familias, empresas, ciudades, provincias, etc.) en diferentes periodos temporales.
+-   Modelo de efectos inobservables con $T$ periodos.
 
--   Por ejemplo, se selecciona una muestra aleatoria de trabajadores y, año tras año, se obtiene información de los mismos trabajadores.
-
-------------------------------------------------------------------------
-
-![MCO en la muestra combinada](img/pool.png)
-
-------------------------------------------------------------------------
-
-![Panel: primeras diferencias](img/fd.png)
-
-------------------------------------------------------------------------
-
-![Panel: efectos fijos](img/fe.png)
-
-------------------------------------------------------------------------
-
-![Panel: efectos aleatorios](img/re.png)
-
-------------------------------------------------------------------------
-
-![Panel: efectos aleatorios (contrastes asociados)](img/re2.png)
-
-------------------------------------------------------------------------
-
--   En un **panel equilibrado** (*balanced*) se obtiene información de las mismas unidades en todos los periodos disponibles.
-
--   En los **paneles incompletos** (*unbalanced*) no hay observaciones de todas las unidades en algunos periodos.
-
--   Diseños más complejos siguen a los individuos durante un número fijo de periodos, tras lo que se reemplazan por otros individuos.
-
-------------------------------------------------------------------------
-
--   Los datos de panel permiten controlar la **heterogeneidad inobservable**: características que difieren de individuo a individuo pero se mantienen constantes a lo largo del tiempo.
-
--   Las observaciones de un panel no son independientes en el tiempo.
-
-## Modelo de efectos inobservables
-
--   Caso más simple: sólo dos periodos temporales, $t = 1, 2$, y $N$ unidades.
-
--   Modelo con una variable explicativa: $$
-    y_{it} = \alpha + \delta d2_t + 
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
     \beta x_{it} + a_i + u_{it}
-    $$ para $i=1, \dots, N$ y $t = 1,2$.
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+
+-   El parámetro de interés es $\beta$.
 
 ------------------------------------------------------------------------
 
-### Variables observables
+### Muestreo aleatorio
 
--   Modelo con una variable explicativa: $$
-    y_{it} = \alpha + \delta d2_t + 
-    \beta x_{it} + a_i + u_{it}.
-    $$
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
 
--   Las variables $y_{it}$ y $x_{it}$ tienen variación tanto individual como temporal.
+-   Se obtiene una muestra aleatoria en la dimensión transversal. Se observa a los mismos individuos a lo largo de los $T$ periodos.
 
--   La variable ficticia $d2_t$ es igual a $1$ cuando $t = 2$. Sólo tiene variación temporal.
+-   Frecuentemente, $N > T$.
 
 ------------------------------------------------------------------------
 
-### Variables inobservables
+### Efectos temporales
 
--   Modelo con una variable explicativa: $$
-    y_{it} = \alpha + \delta d2_t + 
-    \beta x_{it} + a_i + u_{it}.
-    $$
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
 
--   La variable $a_i$ es un **efecto inobservable**, específico de cada individuo y que no cambia en el tiempo.
+-   Las variable ficticia $d2_t$ toma valor $1$ cuando $t = 2$, la ficticia $d3_t$ toma valor $1$ cuando $t=3$, etc.
 
--   El **error idiosincrático**, $u_{it}$, cambia tanto con $i$ como con $t$.
+-   Controlan factores que afectan a *todas* las unidades de corte transversal en cada periodo.
+
+------------------------------------------------------------------------
+
+### Efectos individuales
+
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+
+-   Las variable no observable $a_i$ no varía con el tiempo. Toma un valor distinto para cada individuo y ese valor permanece constante en todos los periodos.
+
+------------------------------------------------------------------------
+
+### Error idiosincrático
+
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+
+-   El termino de error idiosincrático, $u_{it}$, es inobservable y tiene variación individual y temporal.
+
+------------------------------------------------------------------------
+
+### Exogeneidad estricta
+
+-   **Exogeneidad estricta**: para cada $i$, el valor esperado del término de error idiosincrático, $u_{it}$, es 0 condicional a los valores de las explicativas en todos los periodos temporales y a la heterogeneidad no observada:\
+    $$E(u_{it}| x_{i1}, x_{i2}, \dots, x_{iT}, a_i) = 0.$$
+
+-   Las propiedades de los métodos de panel que se presentarán en este curso dependen de este supuesto.
+
+## MCO con muestras fusionadas
+
+-   Reescribimos el modelo con el término de error compuesto: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + v_{it}
+    $$donde $v_{it} = a_i + u_{it}$.
+
+-   MCO sólo es consistente cuando no hay correlación entre las explicativas y el efecto individual, $\operatorname{corr}(x_{it}, a_i) = 0.$
 
 ------------------------------------------------------------------------
 
 ### Ejemplo
 
-`crime2.xlsx`: 46 ciudades en los años 1982 y 1987.
+-   Relación entre delitos violentos y leyes que permiten portar armas ocultas.
 
--   `crime_rate`: tasa de criminalidad.
+-   Panel de los 51 estados de EE.UU. para los años 1995 a 1999 ($N= 51, T = 5$).
 
--   `unem`: tasa de desempleo.
+-   `l_vio`: logaritmo de la tasa de crímenes violentos por cada $100\,000$ habitantes en cada estado y cada año.
 
-Primeras 6 observaciones:
+-   `law`: variable ficticia con valor 1 para los estados que en un determinado año permiten portar armas ocultas.
 
-```{r}
-db <- read_xlsx("data/crime2.xlsx") |>
-  pdata.frame(index = c("city", "year"),
-              drop.index = FALSE, row.names = FALSE)
-
-head(db, n = 6) |> 
-  tt(width = 0.75 * rep(1, 5)/5) |> 
-  format_tt(j = 1:5, digits = 0) |> 
-  format_tt(j = 4, digits = 1) |> 
-  style_tt(j = 1:5, align = "r")
-
-```
+-   `dt_2`, ..., `dt_5`: variables ficticias temporales.
 
 ------------------------------------------------------------------------
 
--   Modelo de efectos inobservables: $$
-    crime\_rate_{it} = \alpha + \delta d87_t + 
-    \beta unem_{it} + a_i + u_{it}.
-    $$
+![MCO en la muestra combinada](img/pool.png)
 
--   Ciudades: $i = 1,\dots, 49$.
+## Estimador de la primera diferencia
 
--   Años: $t = 1982, 1987$.
+-   Se toma la primera diferencia temporal para eliminar la heterogeneidad inobservable.
 
-## Estimación
+-   Modelo en primera diferencias: $$
+    \Delta y_{it} = \delta_2 + \delta_3 d3_t + \dots + \delta_T dT_t + 
+    \beta \Delta x_{it} + \Delta u_{it}
+    $$ para $i=1, \dots, N$ y $t = 2, \dots, T$.
 
--   ¿Cómo estimar $\beta$?
-
--   Una posibilidad consiste en combinar las observaciones de los dos años y estimar el modelo por MCO.
-
--   Reescribimos el modelo: $$
-    crime\_rate_{it} = \alpha + \delta d87_t +
-    \beta unem_{it} + v_{it}.
-    $$ donde $v_{it} = a_i + u_{it}$ es el **error compuesto**.
+-   No es necesario que las explicativas estén incorrelacionadas con $a_i$.
 
 ------------------------------------------------------------------------
 
-Estimación MCO con la muestra combinada (*pooled OLS*):
+![Panel: primeras diferencias](img/fd.png)
 
-```{r}
-mod_pool <- lm(crime_rate ~ d87 + unem, data = db)
-regr_table(mod_pool) 
-```
+## Estimador de efectos fijos
 
-Produce estimaciones inconsistentes si las variables explicativas están correlacionadas con $a_i$.
+-   **Transformación intragrupos**: se resta a los valores que toma una variable, la media para cada $i$: $$\ddot{x}_{it} = x_{it} - \bar{x}_i.$$
+-   Esta transformación elimina los efectos individuales: $$\ddot{a}_{i} = a_{i} - \bar{a}_i= a_{i} - a_i = 0.$$
 
 ------------------------------------------------------------------------
 
-### Estimación en primera diferencia
-
--   ¿Cómo tratar la posible correlación de las explicativas y los efectos individuales?
-
--   Al tomar la **primera diferencia** del modelo se elimina $a_i$: $$ 
-    \Delta crime\_rate_{i} =  \delta +
-    \beta \Delta unem_{i} + \Delta u_{i}.
-    $$
+-   El **estimador de efectos fijos** se obtiene aplicando MCO al modelo en diferencias con respecto a las medias: $$
+    \ddot y_{it} = \gamma_0 + \gamma_2 d2_t + \dots + \gamma_T dT_t + 
+    \beta \ddot x_{it} + \ddot u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
 
 ------------------------------------------------------------------------
 
-```{r}
-mod_fd <- plm(crime_rate ~ unem, data = db, model = "fd")
-regr_table(mod_fd) 
-```
+![Panel: efectos fijos](img/fe.png)
+
+## Estimador de efectos aleatorios
+
+-   Si $\operatorname{corr}(x_{it}, a_i) = 0$, es posible obtener un estimador más eficiente que MCO con la muestra fusionada.
+
+-   Modelo con el término de error compuesto: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + v_{it}
+    $$donde $v_{it} = a_i + u_{it}$.
+
+-   La presencia de $a_i$ en el error compuesto genera autocorrelación en $u_{it}$.
+
+------------------------------------------------------------------------
+
+-   El estimador de efectos aleatorios pertenece a la familia de MCG.
+
+-   Tiene en cuenta la autocorrelación en el término de error compuesto para obtener un estimador más eficiente.
+
+-   Se obtiene aplicando MCO al modelo en *quasi-diferencias*: $$\tilde{y}_{it} = y_{it} - \lambda \bar{y},$$donde $\lambda$ es un parámetro que depende de la varianza de $u_{it}$, la varianza de $a_i$ y de $T$.
+
+------------------------------------------------------------------------
+
+-   El **estimador de efectos aleatorios** se obtiene aplicando MCO al modelo en diferencias con respecto a las medias: $$
+    \tilde y_{it} = \gamma_0 + \gamma_2 d2_t + \dots + \gamma_T dT_t + 
+    \beta \tilde x_{it} + \tilde v_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+-   Cuando $\lambda = 0$, coincide con MCO con datos fusionados.
+-   Cuando $\lambda = 1$, coincide con el estimador de efectos fijos.
+
+------------------------------------------------------------------------
+
+![Panel: efectos aleatorios (contrastes asociados)](img/re.png)
+
+## Comparación
+
+-   El estimador de efectos aleatorios y MCO en muestras fusionadas solo son consistentes si las explicativas y los efectos individuales están incorrelacionados.
+
+-   En ese caso, el estimador de efectos aleatorios es más eficiente y sería preferible a MCO con muestras fusionadas.
+
+------------------------------------------------------------------------
+
+-   La consistencia de los estimadores de la primera diferencia y de efectos fijos no depende de la correlación entre las explicativas y los efectos individuales.
+
+-   Cuando $T=2$, los estimadores de la primera diferencia y de efectos fijos son equivalentes.
+
+-   Cuando $T > 2$, los estimadores de la primera diferencia y de efectos fijos difieren y su eficiencia relativa depende de la autocorrelación en el error idiosincrático.
