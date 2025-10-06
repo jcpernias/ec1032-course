@@ -1,0 +1,47 @@
+---
+title: "Laboratorio Tema 2"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: true
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## Gasto en las escuelas y rendimiento de los estudiantes
+
+### Datos
+
+Los datos recogidos en el fichero `meap.xlsx` son parte de los analizados en [Papke, L. E. (2005), “The Effects of Spending on Test Pass Rates: Evidence from Michigan,” *Journal of Public Economics,* **89**, 821-839](https://linkinghub.elsevier.com/retrieve/pii/S0047272704000908). Se utilizarán para determinar si los gastos realizados por las escuelas de Michigan mejoraron los resultados académicos de los alumnos de primaria. Las variables proporcionan información para los distritos escolares de Michigan en cada año del periodo que va de 1992 a 1998:
+
+-   `distid`: identificador del distrito escolar.
+
+-   `yearid`: año, 1992 a 1998.
+
+-   `math4`: porcentaje de alumnos del distrito escolar que aprueban un examen estandarizado de matemáticas.
+
+-   `rexpp`: gastos de los colegios de primaria en cada distrito, en dólares constantes de 1997.
+
+-   `lunch`: porcentaje de alumnos que reciben ayuda de comedor.
+
+Con estas variables se estimarán diferentes modelos donde la variable dependiente es una medida del rendimiento escolar, `math4`, y las variables explicativas miden los recursos financieros empleados en los colegios de cada distrito, `rexpp`, y un indicador muy correlacionado con la renta media de las familias, `lunch`.
+
+::: callout-important
+Emplee un nivel de significación de $\alpha = 5\%$ en los contrastes de hipótesis y, en su caso, un nivel de confianza del $1 - \alpha = 95\%$ para calcular intervalos de confianza.
+:::
+
+### Instrucciones
+
+1.  Lea el archivo `meap.xlsx` en Gretl y especifique la estructura de panel de los datos. Cree una variable `l_rexpp` tomando el logaritmo de los gastos de los colegios. Estime por MCO un modelo de regresión donde la variable dependiente es `math4` y las explicativas son `l_rexpp`, un retardo de `l_rexpp`, `lunch` y un conjunto de ficticias temporales. Presente la tabla de regresión. De acuerdo con las estimaciones obtenidas, ¿afectan los gastos escolares durante un curso académico al rendimiento escolar de ese año? ¿Hay algún efecto dinámico de los gastos escolares? Interprete la estimación de la pendiente de `lunch`. ¿Tiene sentido el signo de la estimación de ese parámetro?
+2.  Utilice el estimador de efectos aleatorios para estimar los parámetros de un modelo con la misma variable dependiente y explicativas. Compare los resultados con los de MCO. ¿Hay grandes diferencias? ¿Cuál de los dos métodos de estimación sería preferible?
+3.  Aplique el estimador de efectos fijos y compare con los resultados obtenidos con el estimador de efectos aleatorios. ¿Cuándo sería preferible usar uno u otro estimador? De acuerdo con el contraste de Hausman, ¿qué estimador es más adecuado?
+4.  Finalmente, use el estimador de la primera diferencia y compare los resultados con los obtenidos con el estimador de efectos fijos. ¿Bajo qué condiciones sería preferible el estimador de primeras diferencias al de efectos fijos?
