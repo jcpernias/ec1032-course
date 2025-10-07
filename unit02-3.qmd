@@ -1,0 +1,73 @@
+---
+title: Datos de panel (III)
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Capítulo 13, secciones 3 a 5, y capítulo 14.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 10.
+
+## Modelo de efectos individuales
+
+-   Modelo de efectos inobservables con $T$ periodos.
+
+-   Modelo con una variable explicativa, $x_{it}$: $$
+    y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+    \beta x_{it} + a_i + u_{it}
+    $$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+
+## Regresión con variables ficticias
+
+-   Otra forma de verlo: modelo de regresión donde cada unidad tiene un término constante diferente: $\alpha + a_i$.
+
+-   El estimador de efectos fijos es equivalente a estimar por MCO un modelo de regresión que incluya una ficticia para cada unidad (*LSDV* ).
+
+-   El $R^2$ que se obtiene de esta forma no es muy informativo de la capacidad explicativa de $x_{it}$.
+
+------------------------------------------------------------------------
+
+## Efectos fijos y primeras diferencias
+
+-   Los dos estimadores son equivalentes si $T = 2$.
+
+-   Si $T > 2$, la elección entre los dos estimadores debería basarse en su eficiencia relativa.
+
+-   Si $u_{it}$ no presenta autocorrelación, el estimador de efectos fijos es más eficiente.
+
+-   Si $u_{it}$ sigue un paseo aleatorio, el estimador de primeras diferencias es más eficiente.
+
+-   En casos intermedios la comparación es más difícil.
+
+## MCO y efectos aleatorios
+
+-   La consistencia de los dos estimadores depende de las mismas condiciones.
+
+-   Efectos aleatorios es más eficiente.
+
+-   En general, no hay razones para preferir el estimador MCO sobre el de efectos aleatorios.
+
+## Efectos fijos y efectos aleatorios
+
+-   El estimador de efectos fijos es consistente independientemente de que exista correlación entre las explicativas y los efectos individuales.
+
+-   El estimador de efectos aleatorios sólo es consistente si $\operatorname{corr}(a_i, x_{it}) = 0$. En ese caso, también es más eficiente que efectos fijos.
+
+-   Contraste de Hausman: la hipótesis nula es $\operatorname{corr}(a_i, x_{it}) = 0$. Si se rechaza la $H_0$, el estimador de efectos aleatorios sería inconsistente.
