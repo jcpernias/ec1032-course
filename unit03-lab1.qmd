@@ -1,0 +1,59 @@
+---
+title: "Variables proxy"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+    css: custom-lab.css
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: true
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## Datos
+
+La información contenida en el fichero `card2.xlsx` es un subconjunto de los datos empleados en Card (1995)[^1]. La muestra incluye características de trabajadores de Estados Unidos en el año 1976. Todos los trabajadores son hombres.
+
+[^1]: D. Card (1995), "Using Geographic Variation in College Proximity to Estimate the Return to Schooling," in Aspects of Labour Market Behavior: Essays in Honour of John Vanderkamp. Ed. L.N. Christophides, E.K. Grant, and R. Swidinsky, 201-222. Toronto: University of Toronto Press.
+
+-   `wage`: salario por hora, centavos.
+
+-   `educ`: años de educación.
+
+-   `exper`: años de experiencia laboral (experiencia potencial: edad - 6 - `educ`).
+
+-   `black`: variable ficticia, 1 para trabajadores negros.
+
+-   `south`: variable ficticia, 1 para trabajadores que viven en estados del sur.
+
+-   `urban`: variable ficticia, 1 para trabajadores que viven en zonas urbanas.
+
+-   `IQ`: resultados de una prueba de inteligencia.
+
+-   `KWW`: resultados de una prueba psicotécnica de aptitudes para el trabajo.
+
+Para completar esta actividad es necesario crear algunas variables adicionales:
+
+-   `l_wage`: logaritmo del salario por hora.
+
+### Instrucciones
+
+1.  Estime por MCO la regresión simple `l_wage` en función `educ`. Comente los resultados.
+
+2.  Calcule las correlaciones entre `l_wage`, `educ` y `exper`. ¿Es posible que la estimación del modelo de regresión simple esté sesgada? ¿En qué dirección?
+
+3.  Estime un modelo de regresión que explique el `l_wage` con las variables `educ` y `exper`. Compare los resultados con los de la regresión simple.
+
+4.  Considere ahora la siguiente ecuación de salarios: $$\log(wage) = \beta_0 + \beta_1\, educ + \beta_2\,exper + \beta_3 abil + u,$$ donde $$E(u|educ, exper, abil) = 0,$$donde `abil` es una variable que recoge habilidades innatas de los trabajadores. ¿Qué tipo de sesgo se produciría en la estimación de los rendimientos de la educación si `abil`no se puede observar y está correlacionada positivamente con `educ`?
+
+5.  Una de las variables disponibles en la base de datos es `IQ`, el resultado de un test de inteligencia. ¿Qué condiciones se tienen que cumplir para que `IQ` sea una buena variable *proxy* de la habilidad? Incluya `IQ` en la estimación de la ecuación de salarios. Comente los resultados obtenidos.
+
+6.  Es posible usar más de una variable *proxy* simultáneamente. Estime la ecuación de salarios con `educ`, `exper` y las dos variables `IQ` y `KWW`, que actuarán como *proxies* de la habilidad. Comente los resultados.
