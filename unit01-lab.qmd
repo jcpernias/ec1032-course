@@ -5,6 +5,7 @@ format:
   html:
     embed-resources: true
     theme: flatly
+    css: custom-lab.css
 
 date: last-modified
 lang: es

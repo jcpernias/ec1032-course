@@ -1,11 +1,11 @@
 ---
-title: "Laboratorio Tema 1"
+title: "Laboratorio Tema 1 -- Solución"
 author: "Econometría II"
 format: 
   html:
     embed-resources: true
     theme: flatly
-    css: custom.css
+    css: custom-lab.css
 
 date: last-modified
 lang: es
