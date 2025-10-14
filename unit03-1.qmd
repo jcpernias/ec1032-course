@@ -1,0 +1,94 @@
+---
+title: Variables instrumentales
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Capítulo 9, sección 2, y capítulo 15.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 12.
+
+## Variables explicativas endógenas
+
+-   Las **variables explicativas exógenas** no están correlacionadas con el el término de error: $E(u_i | z_i) = 0$.
+
+-   Una variable explicativa $x_i$ es **endógena** cuando $E(u_i| x_i) \neq 0$.
+
+-   MCO no es consistente cuando alguno de los regresores es endógeno.
+
+------------------------------------------------------------------------
+
+La endogeneidad puede surgir por:
+
+-   Omisión de variables relevantes.
+
+-   Simultaneidad.
+
+-   Error de medición.
+
+------------------------------------------------------------------------
+
+Algunas soluciones:
+
+-   Análisis del sesgo.
+
+-   Con datos de panel, uso de estimadores que eliminan la heterogeneidad inobservable.
+
+-   Inclusión de variables *proxy.*
+
+-   Otros métodos de estimación: **estimador de variables instrumentales**.
+
+## El estimador de variables instrumentales
+
+-   Modelo de regresión simple: $$y_i = \beta_0 + \beta_1 x_i + u_i.$$
+
+-   La variable $x$ es endógena: $$\DeclareMathOperator{\cov}{cov}\cov(x_i, u_i) \neq 0.$$
+
+-   Para obtener estimadores consistentes de los parámetros, es necesario incluir información adicional.
+
+------------------------------------------------------------------------
+
+### Instrumentos
+
+Una **variable instrumental** cumple dos condiciones:
+
+-   **Exogeneidad**: $\cov(z_i, u_i) = 0$.
+
+-   **Relevancia**: $\cov(z_i, x_i) \neq 0$.
+
+------------------------------------------------------------------------
+
+### Identificación
+
+-   Un **parámetro** está **identificado** si se puede escribir en términos de momentos poblacionales, los cuales puedan ser estimados con una muestra.
+
+-   A partir de $y_i = \beta_0 + \beta_1 x_i + u_i$: $$\cov(y_i, z_i) = \beta_1 \cov(x_i, z_i) + \cov(u_i, z_i).$$
+
+-   Si el instrumento $z_i$ es exógeno y relevante: $$\beta_1 = \frac{\cov(y_i, z_i)}{\cov(x_i, z_i)}.$$
+
+------------------------------------------------------------------------
+
+### Estimación
+
+-   Estimador de la pendiente: $$\hat{\beta}_1 = \frac{
+    \sum (y_i - \bar{y}_i) (z_i - \bar{z}_i)}{
+    \sum (x_i - \bar{x}_i) (z_i - \bar{z}_i)}.$$
+
+-   Estimador del término constante: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$.
