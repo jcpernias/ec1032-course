@@ -1,0 +1,54 @@
+---
+title: "Variables instrumentales (laboratorio)"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+    css: custom-lab.css
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: true
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## Datos
+
+El archivo `mroz2.xlsx` contiene los salarios y características de una muestra de mujeres asalariadas en Estados Unidos en 1975. Son un subconjunto de los utilzados en T. A. Mroz (1987), “The Sensitivity of an Empirical Model of Married Women’s Hours of Work to Economic and Statistical Assumptions,” *Econometrica* 55, 765-799.
+
+-   `wage`: salario por hora, dólares.
+
+-   `educ`: años en sistema educativo.
+
+-   `exper`: años de experiencia laboral.
+
+-   `fatheduc`: años en sistema educativo del padre.
+
+-   `motheduc`: años en sistema educativo de la madre.
+
+Para completar esta actividad se deben crear algunas variables adicionales:
+
+-   `l_wage`: logaritmo del salario por hora.
+
+## Instrucciones
+
+1.  Estime por MCO la regresión simple del logaritmo del salario en función de `educ`: $$\log(wage) = \beta_0 + \beta_1\,educ + u.$$ {#eq-simple}\
+    Comente los resultados.
+
+2.  Analice la dirección del sesgo del estimador de MCO del parámetro $\beta_1$ si en la regresión anterior se ha omitido `abil`, una variable que mide las capacidades innatas de las trabajadoras (suponga que esta es la única variable omitida).
+
+3.  La variable `fatheduc` mide los años de educación del padre de cada trabajadora. ¿Qué condiciones debe cumplir para ser una buena variable instrumental? ¿Sería adecuado usar `fatheduc` como una variable *proxy*?
+
+4.  Estime la regresión de la primera etapa y, de acuerdo con los resultados de la estimación, determine si `fatheduc` es un instrumento válido.
+
+5.  Estime los parámetros de la @eq-simple usando `fatheduc` como variable instrumental. Comente los resultados y compárelos con los obtenidos con MCO.
+
+6.  Considere ahora la siguiente ecuación de salarios: $$\log(wage) = \beta_0 + \beta_1\, educ + \beta_2\,exper + u,$$ {#eq-mult} Estime los parámetros del modelo de regresión por MCO. Compare los resultados con los que se obtienen usando `fatheduc` como variable instrumental. Compruebe la validez del instrumento mediante la estimación de la regresión de la primera etapa.
+
+7.  Utilizando como variable instrumental `motheduc`, los años de educación de las madres de las trabajadoras, repita el análisis del punto anterior. Compare los resultados.
