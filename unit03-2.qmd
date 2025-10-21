@@ -52,7 +52,7 @@ El estimador MCO es inconsistente cuando hay variables explicativas endógenas.
 ### Regresión de la primera etapa
 
 $$
-\Var{educ} = \pi_0 + \pi_1 \Var{exper} + \pi_2 \Var{fatheduc} + \pi_3 \Var{motheduc} + v.
+\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.
 $$
 
 -   La variable dependiente es la explicativa endógena.
@@ -66,7 +66,7 @@ $$
 ### Validez de los instrumentos
 
 $$
-\Var{educ} = \pi_0 + \pi_1 \Var{exper} + \pi_2 \Var{fatheduc} + \pi_3 \Var{motheduc} + v.
+\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.
 $$
 
 -   Los instrumentos son válidos si tienen capacidad explicativa en la regresión de la primera etapa.
@@ -83,11 +83,7 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ## Mínimos cuadrados en dos etapas
 
--   Se usa MCO para estimar la regresión de la primera etapa. $$
-    \Var{educ} = \pi_0 + \pi_1 \,\Var{exper} + \pi_2\,\Var{fatheduc} + \pi_3 \,\Var{motheduc} + v.
-    $$
-
--   Se obtienen las predicciones de la explicativa endógena. $$
+-   Se usa MCO para estimar la regresión de la primera etapa y se obtienen las predicciones de la explicativa endógena. $$
     \Var{ed\hat{u}c} = \hat{\pi}_0 + \hat{\pi}_1 \,\Var{exper} + \hat{\pi}_2 \,\Var{fatheduc} + \hat{\pi}_3 \,\Var{motheduc}.
     $$
 
@@ -97,7 +93,7 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ------------------------------------------------------------------------
 
--   La estimación por MCO de la segunda etapa produce estimadores correctos de los parámetros.
+-   La estimación por MCO de la segunda etapa produce estimadores consistentes de los parámetros.
 
 -   Los errores típicos de MCO no son correctos porque no tienen en cuenta que $\Var{ed\hat{u}c}$ se obtiene a partir de una estimación previa.
 
@@ -114,3 +110,29 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
     $$
 
 -   Si $\theta = 0$, $\Var{educ}$ es exógena. Esa hipótesis puede contrastarse a partir de la estimación por MCO.
+
+------------------------------------------------------------------------
+
+![](img/tsls-endog.png){fig-align="center"}
+
+## Contraste de sobreidentificación
+
+-   **Cuando hay más de un instrumento** es posible contrastar si algún instrumento no es exógeno.
+
+-   Se basa en una regresión auxiliar de los residuos de MC2E con respecto a todas las explicativas exógenas y todos los instrumentos.
+
+-   Si se cumplen todas las condiciones de exogeneidad, el ajuste de la regresión auxiliar sería prácticamente nulo.
+
+-   **Contraste de Sargan**: bajo la hipótesis nula $N R^2 \sim \chi^2$ con grados de libertad iguales al número de instrumentos menos el número de explicativas endógenas.
+
+------------------------------------------------------------------------
+
+![](img/tsls-sargan.png){fig-align="center"}
+
+Contraste de Sargan: $428 \times 0.000897 = 0.38$. Valor $p = 0.54$.
+
+## ¿Dónde encontrar buenos instrumentos?
+
+-   Teoría económica.
+
+-   Encontrar alguna fuente exógena que provoque variaciones en la explicativa endógena.
