@@ -1,0 +1,69 @@
+---
+title: "Laboratorio Tema 3"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: false
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+$$
+\newcommand{\Var}[1]{\mathit{#1}}
+  \newcommand{\hours}{\Var{hours}}
+  \newcommand{\kids}{\Var{kids}}
+  \newcommand{\otherinc}{\Var{otherinc}}
+  \newcommand{\educ}{\Var{educ}}
+  \newcommand{\age}{\Var{age}}
+  \newcommand{\black}{\Var{black}}
+  \newcommand{\hispan}{\Var{hispan}}
+  \newcommand{\samesex}{\Var{samesex}}
+  \newcommand{\multisecond}{\Var{multisecond}}
+$$
+
+## Oferta de trabajo y fertilidad
+
+### Datos
+
+Los datos del archivo `labsup.xlsx` son un subconjunto de los datos utilizados en [Angrist y Evans (1998)](https://www.jstor.org/stable/116844)[^1]. La muestra está compuesta por 31661 mujeres casadas, madres de al menos dos hijos, negras o hispanas, residentes en Estados Unidos durante 1990.
+
+[^1]: Angrist, J. D., & Evans and W. N. (1998): "Children and their parents’ labor supply: Evidence from exogenous variation in family size." *The American Economic Review*, *88*(3), 450–477.
+
+-   $\hours\,$: horas de trabajo a la semana.
+-   $\kids\,$: número de hijos.
+-   $\otherinc\,$: renta familiar no procedente de la madre, miles de dólares.
+-   $\age\,$: edad de la madre
+-   $\black\,$: variable ficticia, 1 si la madre es negra.
+-   $\hispan\,$: variable ficticia, 1 si la madre es hispana.
+-   $\educ\,$: años de educación de la madre
+-   $\samesex\,$: variable ficticia, 1 si los dos primeros hijos tienen el mismo sexo.
+-   $\multisecond\,$: variable ficticia, 1 si el segundo parto es múltiple.
+
+### Instrucciones
+
+Se tratará de determinar cómo afecta el número de hijos a la oferta de trabajo de las mujeres, medida con $\hours$, las horas trabajadas por semana. Para ello se plantea el siguiente modelo de regresión: $$
+\begin{split}
+\hours = \beta_0 + \beta_1\, \kids + \beta_2\, \otherinc   +         \beta_3\, age + \beta_4\, age^2 \\ + \beta_5\, educ + \beta_6\, black +       \beta_7\, hispan + u.
+\end{split}
+$$ {#eq-1} El parámetro de interés sería $\beta_1$, la pendiente de la variable $\kids$.
+
+Diversas teorías apuntan a que las variables $\hours$ y $\kids$ se determinan simultáneamente en el seno de la familia. En el caso en que $\kids$ sea endógena, la estimación por MCO de los parámetros de la @eq-1 sería inconsistente. Angrist y Evans (1998) utilizaron como instrumentos las variables $\samesex$ y $\multisecond$, ya que estarían relacionadas con cambios exógenos en el número de hijos de naturaleza aleatoria.
+
+1.  Estime los parámetros de la @eq-1 por MCO. Interprete el coeficiente de $\kids$ y discuta su significación estadística.
+
+2.  Estime la regresión de la primera etapa en el caso de que $\kids$ sea una variable endógena y se usen $\samesex$ y $\multisecond$ como instrumentos. Utilice esta regresión para determinar si existe un problema de instrumentos débiles.
+
+3.  Guarde los residuos de la regresión de la primera etapa, inclúyalos como un regresor adicional en la @eq-1 y estime por MCO el modelo ampliado. ¿Hay evidencia sólida de la endogeneidad de $\kids$?
+
+4.  Estime los parámetros de la @eq-1 por mínimos cuadrados en 2 etapas, MC2E, usando $\samesex$ y $\multisecond$ como instrumentos. Compare las estimaciones de los parámetros por MC2E con las obtenidas antes con MCO.
+
+5.  ¿Cuántas restricciones de sobreidentificación se usan en la estimación MC2E? Utilice un contraste para verificar esas restricciones.
