@@ -1,0 +1,41 @@
+---
+title: "Modelos de probabilidad"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+    css: custom-lab.css
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: false
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## Datos
+
+Investigadores del Banco de la Reserva Federal de Boston recopilaron el conjunto de datos HMDA de Boston combina información proveniente de solicitudes de hipotecas y de una encuesta de seguimiento a los bancos y otras instituciones crediticias que recibieron dichas solicitudes. Los datos se refieren a solicitudes de hipotecas realizadas en 1990 en el área metropolitana de Boston. Se empleará un subconjunto de los datos que abarca únicamente viviendas unifamiliares (excluyendo las viviendas multifamiliares) y solicitantes negros y blancos (excluyendo los de otros grupos minoritarios), lo que deja un total de 2380 observaciones. Se puede encontrar más información sobre este conjunto de datos, junto con las conclusiones alcanzadas por los investigadores del Banco de la Reserva Federal de Boston, en el artículo de Alicia H. Munnell, Geoffrey M.B. Tootell, Lynne E. Browne y James McEneaney, “Mortgage Lending in Boston: Interpreting HMDA Data,” *American Economic Review*, 1996, pp. 25—53.
+
+El archivo `hdma2.xlsx` contiene las siguientes variables:
+
+-   `deny`: variable ficticia, 1 si se denegó la solicitud.
+
+-   `piratio`: cociente de pagos mensuales por obligaciones financieras e ingresos al mes.
+
+-   `black`: variable ficticia, 1 si el solicitante era negro.
+
+## Instrucciones
+
+1.  Estime por MCO los parámetros del modelo lineal de probabilidad, MLP: $$deny = \beta_0 + \beta_1\,piratio + u.$$ {#eq-wage} Utilice errores típicos robustos a heteroscedasticidad. Comente los resultados. ¿Cuál es la interpretación de los parámetros? Represente gráficamente las predicciones con respecto a $piratio$. ¿Se observa algún problema?
+
+2.  Estime ahora un modelo probit que explique los rechazos de las solicitudes de hipotecas con la variable $piratio$: $$P(deny = 1 | piratio) = \Phi(\alpha_0 + \alpha_1\,piratio).$$¿Se pueden comparar las estimaciones de los parámetros con las obtenidas en el modelo de probabilidad lineal? Obtenga el efecto marginal (pendiente) en la media de la variable $piratio$. ¿Es comparable con los resultados del MLP? Represente gráficamente las predicciones del modelo probit con respecto de $piratio$. ¿Cómo se interpretan las predicciones? Evalúe la bondad del ajuste.
+
+3.  Repita el análisis del punto anterior utilizando un modelo logit. Compare los resultados obtenidos con los modelos probit y logit.
+
+4.  Añada la variable ficticia $black$ al modelo probit: $$P(deny = 1 | piratio, black) = \Phi(\alpha_0 + \alpha_1\,piratio + \alpha_2\, black).$$Interprete los resultados obtenidos. ¿Qué interpretación tiene la pendiente que Gretl calcula para la variable $black$?
