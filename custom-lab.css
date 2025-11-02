@@ -4,3 +4,12 @@
   border: medium solid #636363 !important;
   border-radius: 10px !important;
 }
+
+.quarto-float-fig {
+    /* Centra el texto y cualquier contenido 'inline' dentro de figcaption */
+    text-align: center;
+}
+
+figure .quarto-figure {
+  margin-bottom: 0 !important;
+}

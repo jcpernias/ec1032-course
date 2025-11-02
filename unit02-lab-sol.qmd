@@ -28,22 +28,38 @@ Emplee un nivel de significación de $\alpha = 5\%$ en los contrastes de hipóte
 1.  Lea el archivo `meap.xlsx` en Gretl y especifique la estructura de panel de los datos. Cree una variable `l_rexpp` tomando el logaritmo de los gastos de los colegios. Estime por MCO un modelo de regresión donde la variable dependiente es `math4` y las explicativas son `l_rexpp`, un retardo de `l_rexpp`, `lunch` y un conjunto de ficticias temporales. Presente la tabla de regresión. De acuerdo con las estimaciones obtenidas, ¿afectan los gastos escolares durante un curso académico al rendimiento escolar de ese año? ¿Hay algún efecto dinámico de los gastos escolares? Interprete la estimación de la pendiente de `lunch`. ¿Tiene sentido el signo de la estimación de ese parámetro?
 :::
 
-![](img/lab2-pols.png){fig-align="center"}
+![Estimación por mínimos cuadrados ordinarios](img/lab2-pols.png){#fig-mco fig-align="center"}
+
+El coeficiente de `l_rexpp` no es significativo para $\alpha = 5\%$ (valor $p = 0.65$), indicando que los gastos escolares durante un curso académico no tienen un efecto estadísticamente significativo en el rendimiento escolar de ese mismo año. Sin embargo, el coeficiente del retardo de `l_rexpp` es positivo y significativo al $5\%$, lo que sugiere un efecto dinámico de los gastos escolares, ya que aumentos en el gasto durante un año sí afectan positivamente al rendimiento académico del siguiente año.
+
+La pendiente de `lunch` es negativa y significativa al $5\%$. En concreto, la estimación de la pendiente muestra que ante un aumento de $10$ puntos porcentuales de alumnos que reciben ayuda alimentaria en el distrito, la tasa de aprobados en matemáticas disminuiría en $4$ puntos porcentuales. Este resultado es razonable, ya que valores mayores de `lunch` estarían reflejando rentas familiares más bajas y el nivel socioeconómico de las familias es un determinante importante de los logros académicos.
 
 ::: question
 2.  Utilice el estimador de efectos aleatorios para estimar los parámetros de un modelo con la misma variable dependiente y explicativas. Compare los resultados con los de MCO. ¿Hay grandes diferencias? ¿Cuál de los dos métodos de estimación sería preferible?
 :::
 
-![](img/lab2-re.png){fig-align="center"}
+![Estimación del modelo de efectos aleatorios](img/lab2-re.png){#fig-ea fig-align="center"}
+
+Los resultados del estimador de efectos aleatorios, EA, son similares en signo y significación a los de MCO. Las estomaciones de los coeficientes de `l_rexpp` y su retardo, `l_rexpp_1` , son de magnitud similar, y solo el primer retardo es significativo al $5\%$. También la estimación de pendiente de `lunch` es similar a la que se obtiene con MCO, mostrando un efecto negativo y significativo.
+
+El estimador de efectos aleatorios es preferible cuando la heterogeneidad individual está presente y no está correlacionada con los regresores. En esas condiciones tanto MCO como EA son consistentes, pero EA es más eficiente.
 
 ::: question
 3.  Aplique el estimador de efectos fijos y compare con los resultados obtenidos con el estimador de efectos aleatorios. ¿Cuándo sería preferible usar uno u otro estimador? De acuerdo con el contraste de Hausman, ¿qué estimador es más adecuado?
 :::
 
-![](img/lab2-fe.png){fig-align="center"}
+![Estimación del modelo de efectos fijos](img/lab2-fe.png){#fig-fe fig-align="center"}
+
+El coeficiente estimado del primer retardo de `l_rexpp` es similar, aunque algo menor, que el obtenido con efectos aleatorios, EA. El efecto contemporáneo de `l_rexpp` sigue sin ser significativo. La diferencia más importante con respecto a EA se da con la estimación del parámetro de `lunch`, que ahora es positivo pero no significativo al $5\%$ (valor $p = 0.23$).
+
+El estimador de efectos aleatorios, es recomendable únicamente si no existe correlación entre la heterogeneidad individual y las variables explicativas, en cuyo caso el estimador de EA es consistente. Por otro lado, el estimador de efectos fijos, EF, es aplicable en condiciones más generales, ya que es consistente independientemente de la existencia de correlación entre los efectos individuales y los regresores. Por tanto, el estimador de efectos fijos es preferible cuando se sospecha que los efectos individuales están correlacionados con las variables explicativas, mientras que el estimador de efectos aleatorios sólo debería usarse cuando se confirme que no existe dicha correlación.
+
+El contraste de Hausman, mostrado en la @fig-ea, presenta un valor muy elevado, $80.6$, y un valor $p$ prácticamente cero, lo que implica el rechazo de la hipótesis nula de que los efectos aleatorios no están correlacionados con las explicativas. En estas condiciones, el estimador de efectos aleatorios no es consistente y es preferible utilizar el estimador de efectos fijos.
 
 ::: question
 4.  Finalmente, use el estimador de la primera diferencia y compare los resultados con los obtenidos con el estimador de efectos fijos. ¿Bajo qué condiciones sería preferible el estimador de primeras diferencias al de efectos fijos?
 :::
 
-![](img/lab2-fd.png){fig-align="center"}
+![Estimación del modelo en primera diferencia](img/lab2-fd.png){#fig-fd fig-align="center"}
+
+Finalmente, se empleó el estimador de primeras diferencias y los resultados obtenidos son similares a los de efectos fijos, tanto en el signo y la magnitud de los parámetros estimados como en la significación estadística. La elección entre el estimador de efectos fijos y de la primera diferencia depende del grado de autocorrelación presente en el término de error idiosincrático. Si no existe autocorrelación, o es muy baja, sería más adecuada la estimación por efectos fijos. El estimador de la primera diferencia sería más adecuado cuando el error idiosincrático presente una raíz unitaria o autocorrelación muy elevada.
