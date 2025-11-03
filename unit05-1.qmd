@@ -1,0 +1,78 @@
+---
+title: Modelos de respuesta binaria
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Sección 5 del capítulo 7, sección 5 del capítulo 8 y sección 1 del capítulo 17.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 12.
+
+## El modelo lineal de probabilidad
+
+-   Modelo de regresión lineal donde la variable dependiente solo toma los valores 0 o 1.
+
+-   Modelo con una variable explicativa: $$y_i = \beta_0 + \beta_1 x_i + u_i.$$
+
+-   Esperanza condicional: $$E(y_i|x_i) = \beta_0 + \beta_1 x_i.$$
+
+------------------------------------------------------------------------
+
+### Probabilidad
+
+-   Cuando $y_i$ solo toma los valores 0 y 1: $$\begin{align*}
+    E(y_i|x_i) &= 
+    1 \times P(y_i = 1| x_i) + 0 \times P(y_i = 0| x_i) \\ 
+    &= P(y_i = 1| x_i).
+    \end{align*}$$
+
+-   Modelo lineal de probabilidad (MLP): $$P(y_i = 1| x_i) = \beta_0 + \beta_1 x_i.$$
+
+-   Usamos $p_i$ para la **probabilidad de ocurrenci**a: $$p_i = P(y_i = 1| x_i) = \beta_0 + \beta_1 x_i.$$
+
+------------------------------------------------------------------------
+
+### Estimación e inferencia
+
+-   Los parámetros del MLP se pueden estimar por MCO.
+
+-   El estimador MCO es consistente si las explicativas son exógenas.
+
+-   El término de error del MLP es heteroscedástico.
+
+-   Se pueden contrastar hipótesis sobre los parámetros usando errores típicos robustos a heteroscedasticidad.
+
+------------------------------------------------------------------------
+
+### Predicciones
+
+-   Predicciones de MCO: $$\hat{y}_i = \hat{\beta}_0 + \hat{\beta_1} x_i.$$
+
+-   Las predicciones se interpretan como la estimación de la probabilidad de ocurrencia de acuerdo a los valores de las explicativas: $$\hat{p}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i.$$
+
+-   El MLP no garantiza que $\hat{p}_i$ esté entre 0 y 1.
+
+------------------------------------------------------------------------
+
+### Interpretación
+
+-   Si $x_i$ es una variable continua, $\beta_1$ es el cambio en la probabilidad de $y_i = 1$ cuando $x_i$ aumenta en 1 unidad. $$\frac{\Delta p_i}{\Delta x_i} = \beta_1.$$
+
+-   Si $x_i$ es una variable ficticia, $\beta_1$ es la diferencia en las probabilidades de ocurrencia cuando $x_i = 1$ y cuando $x_i = 0$: $$P(y_i = 1| x_i = 1) - P(y_i = 1| x_i = 0) = \beta_1.$$
