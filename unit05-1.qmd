@@ -161,7 +161,7 @@ Dependiendo de qué función $G(\cdot)$ se especifique, se obtienen varios model
 
 ### Función logística
 
--   Función de distribución logística: $$\Lambda(z) = \frac{1}{1 + e^{z}}.$$
+-   Función de distribución logística: $$\Lambda(z) = \frac{1}{1 + e^{-z}}.$$
 
 -   Es muy similar a $\Phi(\cdot)$, aunque es más probable obtener valores extremos con una logística que con una normal.
 
