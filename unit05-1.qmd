@@ -47,7 +47,7 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 -   Modelo lineal de probabilidad (MLP): $$P(y_i = 1| \xi) = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}.$$
 
--   Usamos $p_i$ para la **probabilidad de ocurrenci**a: $$p_i = P(y_i = 1| \xi) = \beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}.$$
+-   Usamos $p_i$ para la **probabilidad de ocurrenci**a: $$p_i = P(y_i = 1| \xi) = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}.$$
 
 ------------------------------------------------------------------------
 
