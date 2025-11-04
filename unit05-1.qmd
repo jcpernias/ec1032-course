@@ -25,27 +25,29 @@ lang: es
 
     -   **Stock y Watson**: Capítulo 12.
 
+$\newcommand{\xi}{\boldsymbol{x}_i}$
+
 ## El modelo lineal de probabilidad
 
 -   Modelo de regresión lineal donde la variable dependiente solo toma los valores 0 o 1.
 
--   Modelo con una variable explicativa: $$y_i = \beta_0 + \beta_1 x_i + u_i.$$
+-   Modelo de regresión con $k$ variables explicativas: $$y_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i.$$
 
--   Esperanza condicional: $$E(y_i|x_i) = \beta_0 + \beta_1 x_i.$$
+-   Esperanza condicional: $$E(y_i|x_i) = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}.$$
 
 ------------------------------------------------------------------------
 
 ### Probabilidad
 
 -   Cuando $y_i$ solo toma los valores 0 y 1: $$\begin{align*}
-    E(y_i|x_i) &= 
-    1 \times P(y_i = 1| x_i) + 0 \times P(y_i = 0| x_i) \\ 
-    &= P(y_i = 1| x_i).
+    E(y_i&|x_{1i}, \dots, x_{ki})\\ &=
+    1 \cdot P(y_i = 1| \xi) + 0 \cdot P(y_i = 0| \xi) \\ 
+    &= P(y_i = 1| \xi).
     \end{align*}$$
 
--   Modelo lineal de probabilidad (MLP): $$P(y_i = 1| x_i) = \beta_0 + \beta_1 x_i.$$
+-   Modelo lineal de probabilidad (MLP): $$P(y_i = 1| \xi) = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}.$$
 
--   Usamos $p_i$ para la **probabilidad de ocurrenci**a: $$p_i = P(y_i = 1| x_i) = \beta_0 + \beta_1 x_i.$$
+-   Usamos $p_i$ para la **probabilidad de ocurrenci**a: $$p_i = P(y_i = 1| \xi) = \beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}.$$
 
 ------------------------------------------------------------------------
 
@@ -63,9 +65,7 @@ lang: es
 
 ### Predicciones
 
--   Predicciones de MCO: $$\hat{y}_i = \hat{\beta}_0 + \hat{\beta_1} x_i.$$
-
--   Las predicciones se interpretan como la estimación de la probabilidad de ocurrencia de acuerdo a los valores de las explicativas: $$\hat{p}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i.$$
+-   Las predicciones de MCO se interpretan como la estimación de la probabilidad de ocurrencia de acuerdo a los valores de las explicativas: $$\hat{p}_i = \hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}.$$
 
 -   El MLP no garantiza que $\hat{p}_i$ esté entre 0 y 1.
 
@@ -73,6 +73,61 @@ lang: es
 
 ### Interpretación
 
--   Si $x_i$ es una variable continua, $\beta_1$ es el cambio en la probabilidad de $y_i = 1$ cuando $x_i$ aumenta en 1 unidad. $$\frac{\Delta p_i}{\Delta x_i} = \beta_1.$$
+-   Si $x_{1i}$ es una variable continua, $\beta_1$ es el cambio en la probabilidad de $y_i = 1$ cuando $x_{1i}$ aumenta en 1 unidad. $$\beta_1 = \frac{\Delta p_i}{\Delta x_{1i}}.$$
 
--   Si $x_i$ es una variable ficticia, $\beta_1$ es la diferencia en las probabilidades de ocurrencia cuando $x_i = 1$ y cuando $x_i = 0$: $$P(y_i = 1| x_i = 1) - P(y_i = 1| x_i = 0) = \beta_1.$$
+-   Si $x_{1i}$ es una variable ficticia, $\beta_1$ es la diferencia en las probabilidades de ocurrencia cuando $x_{1i} = 1$ y cuando $x_{1i} = 0$: $$\begin{multline}\beta_1 = P(y_i = 1| x_{1i} = 1, x_{2i}, \dots, x_{ki}) \\- 
+    P(y_i = 1| x_{1i} = 0, x_{2i}, \dots, x_{ki}).\end{multline}$$
+
+## Modelos no lineales
+
+-   La principal limitación del modelo probit es que las predicciones de la probabilidad de ocurrencia no están acotadas entre 0 y 1.
+
+-   Para garantizar probabilidades entre 0 y 1 es necesario utilizar modelos no lineales.
+
+------------------------------------------------------------------------
+
+### Planteamiento general
+
+-   Probabilidad de ocurrencia: $$P(y_i = 1| \xi) = G(\beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}).$$
+
+-   La función $G(\cdot)$ tiene forma de S, es creciente y tiene dos asíntotas en 0 y 1: $$\lim_{z \to -\infty} G(z) = 0, \quad 
+    \lim_{z \to \infty} G(z) = 1.$$
+
+-   Se obtienen varios modelos de probabilidad usando diferentes funciones $G(\cdot)$.
+
+------------------------------------------------------------------------
+
+### Función de distribución normal
+
+-   Función de distribución de una normal estándar: $$\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} e^{-x^2/2} dx.$$
+
+-   Representación gráfica:
+
+    ```{r}
+    #| fig-width: 5
+    #| fig-asp: 0.6
+    #| fig-align: center
+
+    library(ggplot2)
+
+    ggplot() +
+      xlim(-3, 3) +
+      geom_hline(yintercept = 1, color = "gray80", 
+                 linetype = "dashed") +
+      geom_hline(yintercept = 0, color = "gray80", 
+                 linetype = "dashed") +
+      geom_function(fun = pnorm) +
+      scale_y_continuous(breaks = c(0, 0.5, 1)) + 
+      labs(x = "z", y = "Prob.") +
+      theme_classic() +
+      theme(
+        panel.background = element_rect(fill = "#fbf9ec"),
+        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+    ) 
+    ```
+
+------------------------------------------------------------------------
+
+### Modelo probit
+
+-   El modelo probit usa $\Phi(\cdot)$ la función de distribución de una normal estándar: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}).$$
