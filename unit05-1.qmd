@@ -1,5 +1,5 @@
 ---
-title: Modelos de respuesta binaria
+title: Modelos de respuesta binaria (I)
 author: EC1032 --- Econometría II
 institute: Curso 2025-2026
 format: 
@@ -82,24 +82,57 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 -   La principal limitación del modelo probit es que las predicciones de la probabilidad de ocurrencia no están acotadas entre 0 y 1.
 
--   Para garantizar probabilidades entre 0 y 1 es necesario utilizar modelos no lineales.
+-   Para evitar ese problema es necesario utilizar modelos no lineales.
 
 ------------------------------------------------------------------------
 
 ### Planteamiento general
 
--   Probabilidad de ocurrencia: $$P(y_i = 1| \xi) = G(\beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}).$$
+-   Probabilidad de ocurrencia: $$P(y_i = 1| \xi) = G(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
+
+-   La función $G(\cdot)$ siempre produce probabilidades en el intervalo $(0, 1)$.
+
+------------------------------------------------------------------------
 
 -   La función $G(\cdot)$ tiene forma de S, es creciente y tiene dos asíntotas en 0 y 1: $$\lim_{z \to -\infty} G(z) = 0, \quad 
     \lim_{z \to \infty} G(z) = 1.$$
 
--   Se obtienen varios modelos de probabilidad usando diferentes funciones $G(\cdot)$.
+    ```{r}
+    #| fig-width: 6
+    #| fig-asp: 0.6
+    #| fig-align: center
+
+    library(ggplot2)
+
+    ggplot() +
+      geom_hline(yintercept = 1, color = "gray80", 
+                 linetype = "dashed") +
+      geom_hline(yintercept = 0, color = "gray80", 
+                 linetype = "dashed") +
+      geom_function(fun = plogis) +
+      scale_y_continuous(breaks = c(0, 1)) + 
+      scale_x_continuous(limits = c(-4, 4), breaks = NULL) + 
+      labs(x = "z", y = "Prob.") +
+      theme_classic() +
+      theme(
+        panel.background = element_rect(fill = "#fbf9ec"),
+        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+    ) 
+    ```
+
+------------------------------------------------------------------------
+
+Dependiendo de qué función $G(\cdot)$ se especifique, se obtienen varios modelos de probabilidad:
+
+-   Modelo probit: usa la función de distribución normal estándar.
+
+-   Modelo logit: usa la función logística.
 
 ------------------------------------------------------------------------
 
 ### Función de distribución normal
 
--   Función de distribución de una normal estándar: $$\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} e^{-x^2/2} dx.$$
+-   Función de distribución de una variable normal estándar: $$\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} e^{-\nu^2/2} d\nu.$$
 
 -   Representación gráfica:
 
@@ -107,8 +140,6 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
     #| fig-width: 5
     #| fig-asp: 0.6
     #| fig-align: center
-
-    library(ggplot2)
 
     ggplot() +
       xlim(-3, 3) +
@@ -128,6 +159,97 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ------------------------------------------------------------------------
 
-### Modelo probit
+### Función logística
 
--   El modelo probit usa $\Phi(\cdot)$ la función de distribución de una normal estándar: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_k x_{1i} + \dots + \beta_k x_{ki}).$$
+-   Función de distribución logística: $$\Lambda(z) = \frac{1}{1 + e^{z}}.$$
+
+-   Es muy similar a $\Phi(\cdot)$, aunque es más probable obtener valores extremos con una logística que con una normal.
+
+-   Representación gráfica:
+
+    ```{r}
+    #| fig-width: 5
+    #| fig-asp: 0.6
+    #| fig-align: center
+
+    library(ggplot2)
+
+    ggplot() +
+      xlim(-3, 3) +
+      geom_hline(yintercept = 1, color = "gray80", 
+                 linetype = "dashed") +
+      geom_hline(yintercept = 0, color = "gray80", 
+                 linetype = "dashed") +
+      geom_function(fun = plogis) +
+      scale_y_continuous(breaks = c(0, 0.5, 1)) + 
+      labs(x = "z", y = "Prob.") +
+      theme_classic() +
+      theme(
+        panel.background = element_rect(fill = "#fbf9ec"),
+        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+    ) 
+    ```
+
+------------------------------------------------------------------------
+
+### Modelos probit y logit
+
+-   El modelo probit se obtiene cuando se usa $\Phi(\cdot)$, la función de distribución de una normal estándar: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
+-   El modelo logit usa la función logística, $\Lambda(\cdot)$: $$P(y_i = 1| \xi) = \Lambda(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
+
+------------------------------------------------------------------------
+
+### Estimación e inferencia
+
+-   Los parámetros de los modelos probit y logit se estiman por el método de máxima verosimilitud.
+
+-   En muestras grandes, el estimador máximo verosímil es consistente y tiene distribución asintótica normal.
+
+-   Con los errores típicos de máxima verosimilitud se pueden calcular contrastes $t$ y de Wald, para validar hipótesis sobre los parámetros.
+
+-   Otros contrastes asociados a máximo verosimilitud: razón de verosimilitudes, multiplicadores de Lagrange, etc.
+
+------------------------------------------------------------------------
+
+### Interpretación de los parámetros
+
+-   La magnitud de los parámetros de los modelos de probabilidad no tiene una interpretación directa interesante.
+
+-   El signo de los parámetros indica si la variable explicativa y la probabilidad de ocurrencia están directa o inversamente relacionadas.
+
+-   Para interpretar las estimaciones se recurre al cálculo de los **efectos parciales**.
+
+------------------------------------------------------------------------
+
+### Efectos parciales: variables continuas
+
+Si $x_{1i}$ es continua, se puede calcular el efecto de un cambio de esta variable sobre la probabilidad de ocurrencia: $$\frac{\partial p_i}{\partial x_{1i}} = g(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}) \beta_1,$$ donde $p_i = P(y_i = 1| \xi)$ y $g(\cdot)$ es la derivada de $G(\cdot)$.
+
+------------------------------------------------------------------------
+
+### Efectos parciales: variables ficticias
+
+Cuando $x_{1i}$ es una variable ficticia el efecto parcial es la diferencia de probabilidades cuando $x_{1i} = 1$ y cuando $x_{1i} = 0$: $$\Delta p_i = P(y_i = 1| x_{1i} = 1, x_{2i}, \dots, x_{ki}) \\- 
+P(y_i = 1| x_{1i} = 0, x_{2i}, \dots, x_{ki}).$$
+
+Por tanto: $$\Delta p_i = G(\beta_0 + \beta_1 + \beta_2 x_{2i} + \dots + \beta_k x_{ki}) - \\ G(\beta_0 + \beta_2 x_{2i} + \dots + \beta_k x_{ki}).$$
+
+------------------------------------------------------------------------
+
+### Cálculo de los efectos parciales
+
+-   Las fórmulas de los efectos parciales pueden aplicarse a cualquier valor de las explicativas.
+
+-   Habitualmente se calculan los **efectos parciales en la media**. Por ejemplo: $$g(\beta_0 + \beta_1 \bar{x}_{1} + \dots + \beta_k \bar{x}_{k}) \beta_1.$$
+
+-   Otra alternativa es calcular el **efecto parcial medio**: $$\frac{1}{N} \sum_i g(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}) \beta_1.$$
+
+------------------------------------------------------------------------
+
+### Bondad del ajuste
+
+-   Predicción de las probabilidades de ocurrencia: $$\hat{p}_i = G(\hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}).$$
+
+-   Predicción de la variable dependiente: $$\hat{y}_i = \begin{cases}1 & \hat{p}_i \geq 0.5 \\ 0 & \hat{p}_i \lt 0.5 \end{cases}$$
+
+-   Comparando los valores de $y_i$ e $\hat{y}_i$ se puede calcular el **porcentaje de predicciones correctas**, que se suele usar como una medida de bondad del ajuste.
