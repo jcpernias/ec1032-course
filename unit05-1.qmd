@@ -116,7 +116,7 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
       theme_classic() +
       theme(
         panel.background = element_rect(fill = "#fbf9ec"),
-        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+        plot.background = element_rect(fill = "#fbf9ec"),
     ) 
     ```
 
@@ -153,7 +153,7 @@ Dependiendo de qué función $G(\cdot)$ se especifique, se obtienen varios model
       theme_classic() +
       theme(
         panel.background = element_rect(fill = "#fbf9ec"),
-        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+        plot.background = element_rect(fill = "#fbf9ec"),
     ) 
     ```
 
@@ -186,7 +186,7 @@ Dependiendo de qué función $G(\cdot)$ se especifique, se obtienen varios model
       theme_classic() +
       theme(
         panel.background = element_rect(fill = "#fbf9ec"),
-        plot.background = element_rect(fill = "#fbf9ec", color = NA),
+        plot.background = element_rect(fill = "#fbf9ec"),
     ) 
     ```
 
