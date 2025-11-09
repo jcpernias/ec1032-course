@@ -1,5 +1,5 @@
 ---
-title: "Modelos de probabilidad (I)"
+title: "Modelos de probabilidad"
 author: "Econometría II"
 format: 
   html:
