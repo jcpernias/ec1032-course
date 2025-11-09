@@ -1,0 +1,46 @@
+---
+title: "Laboratorio Tema 5"
+author: "Econometría II"
+format: 
+  html:
+    embed-resources: true
+    theme: flatly
+
+date: last-modified
+lang: es
+toc-title: Contenido
+toc: true
+number-sections: false
+number-depth: 2
+format-links: false
+
+editor: visual
+---
+
+## El empleo en la Gran Recesión
+
+### Datos
+
+Los datos del archivo `empl09.xlsx` son una muestra de corte transversal que contiene información sobre 5412 trabajadores de Estados Unidos que estaban empleados a tiempo completo en el año 2008, coincidiendo con el inicio de la Gran Recesión. Todas las variables son ficticias que describen aspectos socioeconómicos de los trabajadores:
+
+-   `employed`: 1 si continuaba empleado un año más tarde, en 2009.
+
+-   `age_lt_30`: 1 si era menor de 30 años.
+
+-   `age_gt_50`: 1 si era mayor de 50 años.
+
+-   `female`: 1 si era mujer.
+
+-   `ed_hs`: 1 si completó la educación secundaria.
+
+-   `ed_sup`: 1 si tenía estudios superiores.
+
+-   `union`: 1 si estaba afiliado a un sindicato.
+
+-   `pub`: 1 si estaba empleado en el sector público.
+
+-   `self`: 1 si era autónomo.
+
+Las categorías omitidas son: edad entre 30 y 50 años (para `age_lt_30` y `age_gt_50`), educación primaria o menos (para `ed_hs` y `ed_sup`) y empleado en una empresa privada (para `pub` y `self`).
+
+### Instrucciones
