@@ -29,13 +29,13 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ## Modelos de variable latente
 
--   Sea $y_i^*$ una **variable latente**, que no puede observarse y viene determinada por: $$y^*_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i,$$ donde $u_i$ es un término de error con distribución normal.
+-   Sea $y_i^*$ una **variable latente**, que no puede observarse y viene determinada por: $$y^*_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i,$$ donde $u_i$ es un término de error independiente de $\xi$ y con distribución normal $N(0, 1)$.
 
 ------------------------------------------------------------------------
 
 ### Modelo probit
 
--   Sólo se observa la variable $y_i$: $$y_i = \begin{cases} 1 & \text{si $y^*_i > 0$;} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
+-   Sólo se observa la variable $y_i$: $$y_i = \begin{cases} 1 & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
 
 -   Entonces $y_i$ sigue un modelo probit: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
 
@@ -47,13 +47,13 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 -   Los modelos de variable latente son fáciles de extender a casos más complicados.
 
--   Ejemplo: en el modelo **modelo tobit**, solo se observan valores positivos de la variable latente y 0 en caso de que $y^*_i \leq 0$: $$y_i = \begin{cases} y^*_i & \text{si $y^*_i > 0$;} \\ 0 & \text{si $y^*_i \leq 0$;}\end{cases}$$
+-   Ejemplo: en el **modelo tobit**, solo se observan valores positivos de la variable latente y 0 en caso de que $y^*_i \leq 0$: $$y_i = \begin{cases} y^*_i & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
 
 ## Medidas de bondad del ajuste
 
 -   Predicción de las probabilidades de ocurrencia: $$\hat{p}_i = G(\hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}).$$
 
--   Usualmente la predicción de la variable dependiente se construye con la siguiente regla: $$\hat{y}_i = \begin{cases}1 & \hat{p}_i \geq 0.5 \\ 0 & \hat{p}_i \lt 0.5 \end{cases}$$
+-   Usualmente la predicción de la variable dependiente se construye con la siguiente regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.5$,} \\ 0 & \text{si $\hat{p}_i \lt 0.5$.} \end{cases}$$
 
 ------------------------------------------------------------------------
 
@@ -65,14 +65,14 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
     y_i = 0 & n_{00} & n_{01} \\
     y_i = 1 & n_{10} & n_{11} \\
     \end{array}$$
--   Porcentaje de predicciones correctas: $100 (n_{00} + n_{00}) / N$.
+-   Porcentaje de predicciones correctas: $100 (n_{00} + n_{11}) / N$.
 
 ------------------------------------------------------------------------
 
 ### Pseudo R cuadrado
 
 -   McFadden propuso una medida de ajuste para modelos estimados por máxima verosimilitud.
--   Propone un cálculo similar al $R^2$ pero basado en el valor de la función de verosimilitud: $$\text{pseudo }R^2 = 1 - \frac{\mathcal{L}_{\max}}{\mathcal{L_0}}$$
+-   Propone un cálculo similar al $R^2$ pero basado en el valor de la función de verosimilitud: $$\text{pseudo }R^2 = 1 - \frac{\mathcal{L}_{\max}}{\mathcal{L_0}}.$$
 -   Al igual que el $R^2$ está acotado entre 0 y 1, pero es más difícil de interpretar.
 
 ------------------------------------------------------------------------
@@ -89,7 +89,7 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 -   Algunos autores proponen considerar los porcentajes de predicciones correctas para cada valor.
 
--   Otra propuesta es cambiar el umbral para obtener las predicciones. Por ejemplo, si $y_i = 1$ en solo el $10\%$ de las observaciones, se puede usar la regla: $$\hat{y}_i = \begin{cases}1 & \hat{p}_i \geq 0.1 \\ 0 & \hat{p}_i \lt 0.1 \end{cases}$$
+-   Otra propuesta es cambiar el umbral para obtener las predicciones. Por ejemplo, si $y_i = 1$ en solo el $10\%$ de las observaciones, se puede usar la regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.1$}, \\ 0 & \text{si $\hat{p}_i \lt 0.1$.} \end{cases}$$
 
 ## Error de especificación
 
@@ -103,30 +103,37 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ### Endogeneidad
 
--   Exogeneidad.
+-   El modelo lineal de probabilidad puede estimarse por MC2E si alguna explicativa es endógena.
+-   En el caso de los modelos probit y logit, es más difícil obtener estimaciones consistentes.
 
 ------------------------------------------------------------------------
 
 ### Muestreo no aleatorio
 
--   Muestreo no aleatorio. Selección muestral.
+-   Cuando en la población la ocurrencia de un evento es muy rara, puede que en una muestra aleatoria no se observe nunca el caso $y_i = 1$.
+-   En esas condiciones, a veces se usa muestreo no aleatorio de forma que estén sobrerrepresentados los casos en que $y_i = 1$.
+-   Cuando el muestreo depende de los valores que toma la variable dependiente se produce **sesgo de selección muestral**.
 
 ------------------------------------------------------------------------
 
 ### Distribución
 
--   Distribución.
+-   Las propiedades de MCO al estimar un modelo lineal de probabilidad no dependen de la distribución del término de error.
+-   La aplicación del método de máxima verosimilitud requiere de la especificación completa de la distribución del término de error.
+-   Errores en la especificación de la distribución pueden producir estimaciones inconsistentes.
 
 ## Otras estructuras de datos
 
--   Cortes transversales combinados.
+-   Aplicación a cortes transversales combinados de los modelos de probabilidad es trivial.
 
--   Datos de panel.
+-   Con datos de panel, el modelo lineal de probabilidad puede estimarse por efectos fijos o aleatorios.
+
+-   Los modelos probit y logit no se extienden fácilmente a datos de panel.
 
 ## Otros modelos con variable dependiente limitada
 
--   Modelos ordinales
+-   Modelos ordinales: $y_i$ es una escala de Likert.
 
--   Modelos multinomiales.
+-   Modelos multinomiales: decisiones entre más de dos opciones (elección del modo de transporte).
 
 -   Otros: tobit, Poisson, truncamiento, etc.
