@@ -1,0 +1,132 @@
+---
+title: Modelos de respuesta binaria (II)
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Sección 5 del capítulo 7, sección 5 del capítulo 8 y sección 1 del capítulo 17.
+
+-   Complementaria:
+
+    -   **Stock y Watson**: Capítulo 12.
+
+$\newcommand{\xi}{\boldsymbol{x}_i}$
+
+## Modelos de variable latente
+
+-   Sea $y_i^*$ una **variable latente**, que no puede observarse y viene determinada por: $$y^*_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i,$$ donde $u_i$ es un término de error con distribución normal.
+
+------------------------------------------------------------------------
+
+### Modelo probit
+
+-   Sólo se observa la variable $y_i$: $$y_i = \begin{cases} 1 & \text{si $y^*_i > 0$;} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
+
+-   Entonces $y_i$ sigue un modelo probit: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
+
+------------------------------------------------------------------------
+
+### Otros modelos
+
+-   Si la distribución de $u_i$ es logística, se obtiene un modelo logit.
+
+-   Los modelos de variable latente son fáciles de extender a casos más complicados.
+
+-   Ejemplo: en el modelo **modelo tobit**, solo se observan valores positivos de la variable latente y 0 en caso de que $y^*_i \leq 0$: $$y_i = \begin{cases} y^*_i & \text{si $y^*_i > 0$;} \\ 0 & \text{si $y^*_i \leq 0$;}\end{cases}$$
+
+## Medidas de bondad del ajuste
+
+-   Predicción de las probabilidades de ocurrencia: $$\hat{p}_i = G(\hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}).$$
+
+-   Usualmente la predicción de la variable dependiente se construye con la siguiente regla: $$\hat{y}_i = \begin{cases}1 & \hat{p}_i \geq 0.5 \\ 0 & \hat{p}_i \lt 0.5 \end{cases}$$
+
+------------------------------------------------------------------------
+
+### Porcentaje de predicciones correctas
+
+-   Clasificación de las predicciones: $$\begin{array}{c|cc}
+    &\hat{y}_i = 0 & \hat{y}_i = 1\\
+    \hline
+    y_i = 0 & n_{00} & n_{01} \\
+    y_i = 1 & n_{10} & n_{11} \\
+    \end{array}$$
+-   Porcentaje de predicciones correctas: $100 (n_{00} + n_{00}) / N$.
+
+------------------------------------------------------------------------
+
+### Pseudo R cuadrado
+
+-   McFadden propuso una medida de ajuste para modelos estimados por máxima verosimilitud.
+-   Propone un cálculo similar al $R^2$ pero basado en el valor de la función de verosimilitud: $$\text{pseudo }R^2 = 1 - \frac{\mathcal{L}_{\max}}{\mathcal{L_0}}$$
+-   Al igual que el $R^2$ está acotado entre 0 y 1, pero es más difícil de interpretar.
+
+------------------------------------------------------------------------
+
+### Limitaciones
+
+-   La capacidad predictiva se resiente cuando uno de los dos valores de $y_i$ es poco frecuente.
+
+-   Es posible obtener un porcentaje correcto de predicciones muy alto aún cuando hay muchos errores de predicción para uno de los valores.
+
+------------------------------------------------------------------------
+
+### Medidas alternativas
+
+-   Algunos autores proponen considerar los porcentajes de predicciones correctas para cada valor.
+
+-   Otra propuesta es cambiar el umbral para obtener las predicciones. Por ejemplo, si $y_i = 1$ en solo el $10\%$ de las observaciones, se puede usar la regla: $$\hat{y}_i = \begin{cases}1 & \hat{p}_i \geq 0.1 \\ 0 & \hat{p}_i \lt 0.1 \end{cases}$$
+
+## Error de especificación
+
+-   El método de máxima verosimilitud proporciona estimadores con buenas propiedades estadísticas si se cumplen determinados supuestos.
+
+-   Estos supuestos son mucho más exigentes que los que necesitamos para garantizar la consistencia de MCO.
+
+-   Generalmente, es complicado adaptar máxima verosimilitud a otras situaciones.
+
+------------------------------------------------------------------------
+
+### Endogeneidad
+
+-   Exogeneidad.
+
+------------------------------------------------------------------------
+
+### Muestreo no aleatorio
+
+-   Muestreo no aleatorio. Selección muestral.
+
+------------------------------------------------------------------------
+
+### Distribución
+
+-   Distribución.
+
+## Otras estructuras de datos
+
+-   Cortes transversales combinados.
+
+-   Datos de panel.
+
+## Otros modelos con variable dependiente limitada
+
+-   Modelos ordinales
+
+-   Modelos multinomiales.
+
+-   Otros: tobit, Poisson, truncamiento, etc.
