@@ -44,7 +44,7 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ### Ecuaciones aparentemente no relacionadas
 
--   Modelo con dos ecuaciones:
+-   Ejemplo con dos ecuaciones:
 
     $$
     \begin{aligned}
@@ -53,7 +53,7 @@ $\newcommand{\xi}{\boldsymbol{x}_i}$
     \end{aligned}
     $$
 
--   Las variables explicativas ($x_{1i}, \dots, x_{4i}$) son exógenas: no están correlacionadas con $u_{1i}$ ni con $u_{2i}$.
+-   Las variables explicativas $x_{1i}, \dots, x_{4i}$ son exógenas: no están correlacionadas con $u_{1i}$ ni con $u_{2i}$.
 
 -   Los errores $u_{1i}$ y $u_{2i}$ pueden estar correlacionados.
 
