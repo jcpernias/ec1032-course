@@ -1,0 +1,60 @@
+---
+title: Modelos de ecuaciones simultáneas (II)
+author: EC1032 --- Econometría II
+institute: Curso 2025-2026
+format: 
+  revealjs:
+    embed-resources: true
+    theme: beige
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    progress: false
+    hide-inactive-cursor: true
+editor: visual
+lang: es
+---
+
+## Bibliografía
+
+-   Básica:
+
+    -   **Wooldridge**: Capítulo 16.
+
+$\newcommand{\xi}{\boldsymbol{x}_i}$
+
+## Ejemplo: modelo del multiplicador
+
+-   Modelo del multiplicador en una economía cerrada y sin sector público. **Forma estructural**: $$\begin{align*}C_t &= \alpha + \beta Y_t + u_t \\ Y_t &= C_t + I_t \end{align*}$$
+
+-   Se compone de una ecuación de comportamiento y una identidad.
+
+-   Variables endógenas: $C_t$ e $Y_t$.
+
+-   Variable exógena: $I_t$.
+
+------------------------------------------------------------------------
+
+### Forma reducida
+
+-   **Forma reducida**: una ecuación para cada variable endógena en función de las variables exógenas.
+
+-   Despejando, obtenemos: $$\begin{align*} C_t &= \frac{\alpha}{1 - \beta} + \frac{\beta}{1 - \beta} I_t + \frac{u_t}{1 - \beta} \\ Y_t &= \frac{\alpha}{1 - \beta} + \frac{1}{1 - \beta} I_t - \frac{u_t}{1 - \beta} \end{align*}$$
+
+------------------------------------------------------------------------
+
+### Identificación
+
+-   Forma reducida: $$\begin{align*}C_t &= \pi_{10} + \pi_{11} I_t + v_{1t} \\ Y_t &= \pi_{20} + \pi_{21} I_t + v_{2t} \end{align*}$$
+
+-   Las ecuaciones de la forma reducida pueden estimarse por MCO ya que todas las explicativas son exógenas.
+
+-   Problema de la identificación: ¿podemos recuperar los parámetros estructurales a partir de los parámetros de la forma reducida?
+
+------------------------------------------------------------------------
+
+### Identificación
+
+-   Dado que $\pi_{11} = \beta/(1 - \beta)$: $$\beta = \frac{\pi_{11}}{1+ \pi_{11}}.$$
+
+-   También se puede obtener $\alpha$ a partir de los parámetros de la forma reducida: $$\alpha = \pi_{10} \big(1 + \pi_{11} \big).$$
