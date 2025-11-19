@@ -80,13 +80,19 @@ Las categorías omitidas son: edad entre 30 y 50 años (para `age_lt_30` y `age_
 
 ![](img/lab5-ols-simple.png){fig-align="center"}
 
+La constante de este modelo muestra que la probabilidad de que un trabajador con más de 30 años (`age_lt_30` $= 0$) continuara empleado un año después era del $89\%$ aproximadamente. La pendiente muestra que esta probabilidad era $7.7$ puntos porcentuales más baja en el caso de los trabajadores con menos de 30 años (`age_lt_30` $= 1$). Usando un nivel de significación del $5\%$, esta diferencia es significativamente distinta de $0$ (valor $p < 0.01$).
+
 ::: question
 2.  Estime un modelo probit con `employed` como variable dependiente y `age_lt_30` como explicativa. Interprete los resultados de la estimación y compárelos con los obtenidos con MCO.
 :::
 
 ![](img/lab5-probit-simple-pval.png){fig-align="center"}
 
+La pendiente estimada en el modelo probit es significativamente distinta de 0 y negativa. Esto indica que la probabilidad de permanecer empleado era más baja para los trabajadores jóvenes que para los trabajadores mayores de 30 años. No es posible decir mucho más a partir del examen directo de los parámetros del modelo probit. Necesitamos obtener los efectos parciales para poder interpretar los resultados de la estimación en términos de probabilidades.
+
 ![](img/lab5-probit-simple-eff.png){fig-align="center" width="80%"}
+
+El efecto parcial de `age_lt_30` es $-0.076$. Es decir, la probabilidad de continuar empleado 1 año después era $7.6$ puntos porcentuales más baja para los trabajadores con menos de 30 años que para los mayores de 30. Este resultado es prácticamente coincidente con la estimación obtenida con MCO.
 
 ::: question
 3.  Amplíe el modelo probit del apartado anterior: además de `age_lt_30`, incluya como explicativas `age_gt_50`, `female`, `ed_hs`, `ed_sup`, `union`, `pub` y `self`. Discuta brevemente la significación de los parámetros y comente los efectos de los diferentes grupos de variables sobre la probabilidad de continuar empleado.
@@ -94,10 +100,26 @@ Las categorías omitidas son: edad entre 30 y 50 años (para `age_lt_30` y `age_
 
 ![](img/lab5-probit-pval.png){fig-align="center"}
 
+Todas las explicativas, excepto `self`, tienen efectos significativos al $5\%$ sobre la probabilidad de conservar el empleo un año después.
+
 ![](img/lab5-probit-eff.png){fig-align="center" width="75%"}
+
+Si examinamos los efectos parciales podemos ver como cambiaba la probabilidad de seguir empleado para diferentes grupos de trabajadores.
+
+Hay diferencias importantes de acuerdo a la edad de los trabajadores y, en comparación a los trabajadores de edad media, tenían menores probabilidades de conservar el empleo los trabajadores mayores de 50 años ($3.0$ puntos porcentuales menos) y, en especial, los trabajadores con menos de 30 años ($-9.0$ puntos porcentuales).
+
+El efecto parcial de `female` muestra que las probabilidad de las mujeres era $2.8$ puntos porcentuales menor que la de los hombres.
+
+Mayores niveles educativos estaban asociados con mayor probabilidad de mantenerse empleados: la de los trabajadores que finalizaron la secundaria y la de los que tenían estudios superiores eran $4.8$ y $8.6$ puntos porcentuales mayores que la de los que como mucho habían acabado la primaria.
+
+Los afiliados a sindicatos tenían probabilidades más bajas de continuar empleados ($7.2$ puntos porcentuales menos) que los no afiliados. Este efecto, aparentemente poco intuitivo, podría deberse a que los sectores que más sufrieron las consecuencias adversas de la Gran Recesión fueron aquellos los donde la presencia de los sindicatos era mayor.
+
+Los empleados de empresas públicas se vieron menos afectados, y su probabilidad de permanecer empleado era $3.1$ puntos porcentuales mayor que la de los empleados de empresas privadas. La probabilidad de los trabajadores autónomos era $1.5$ puntos porcentuales más baja que la de los empleados en empresas privadas aunque, como se comentó antes, este efecto no es significativo.
 
 ::: question
 4.  Amplíe el modelo probit del apartado anterior para contrastar si el impacto de la edad en el empleo fue diferente para hombres y mujeres.
 :::
+
+Para llevar a cabo el contraste es necesario crear interacciones de la variable `female` y las variables de edad, `age_lt_30` y `age_gt_50`. En la tabla siguiente se muestran las estimaciones de un modelo probit que incorpora las dos interacciones y un contraste de su significación conjunta. El contraste $F$ toma un valor muy bajo, $1.10$, y el valor de probabilidad, $0.33$ supera el $5\%$, por lo que concluimos que no hay evidencia de diferencias entre los efectos parciales de la edad para hombres y para mujeres.
 
 ![](img/lab5-probit-female-age.png){fig-align="center"}
