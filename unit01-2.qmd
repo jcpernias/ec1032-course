@@ -26,25 +26,25 @@ options(tinytable_tt_theme = \(x) theme_revealjs(x, fontsize = .65))
 
 ## Introducción
 
--   [Kiel y McClain (1995)](https://doi.org/10.1006/jeem.1995.1016) analizan como la construcción de un incinerador afectó a los precios de venta de las casas situadas cerca de él.
+- [Kiel y McClain (1995)](https://doi.org/10.1006/jeem.1995.1016) analizan como la construcción de un incinerador afectó a los precios de venta de las casas situadas cerca de él.
 
--   Se usarán parte de los datos de ese trabajo para verificar el posible efecto causal.
+- Se usarán parte de los datos de ese trabajo para verificar el posible efecto causal.
 
 ## Descripción de los datos
 
--   Fusión de dos cortes transversales: 1978, antes de que empezaran los rumores de la futura construcción, y 1981, cuando se inició la construcción.
+- Fusión de dos cortes transversales: 1978, antes de que empezaran los rumores de la futura construcción, y 1981, cuando se inició la construcción.
 
--   Dos grupos de casas: las situadas cerca del lugar de la construcción, grupo de tratamiento, y las situadas lejos, grupo de control.
+- Dos grupos de casas: las situadas cerca del lugar de la construcción, grupo de tratamiento, y las situadas lejos, grupo de control.
 
 ## Variables
 
--   **y81**: variable ficticia, 1 si la venta se produce en 1981.
+- **y81**: variable ficticia, 1 si la venta se produce en 1981.
 
--   **nearinc**: variable ficticia, 1 si la casa está situada cerca del lugar de construcción del incinerador.
+- **nearinc**: variable ficticia, 1 si la casa está situada cerca del lugar de construcción del incinerador.
 
--   **rprice**: precio de venta, en dólares de 1978.
+- **rprice**: precio de venta, en dólares de 1978.
 
--   **age**: edad de la casa, en años.
+- **age**: edad de la casa, en años.
 
 ## Estadísticos descriptivos
 
