@@ -17,148 +17,144 @@ lang: es
 
 ## Bibliografía
 
--   Básica:
+- Básica:
 
-    -   **Wooldridge**: Capítulo 16.
+  - **Wooldridge**: Capítulo 16.
 
 $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ## Modelos multiecuacionales
 
--   Modelos compuestos de más de una ecuación.
+- Modelos compuestos de más de una ecuación.
 
--   Sólo consideramos modelos donde todas las ecuaciones son lineales.
+- Sólo consideramos modelos donde todas las ecuaciones son lineales.
 
--   ¿En qué situaciones MCO sigue siendo consistente?
+- ¿En qué situaciones MCO sigue siendo consistente?
 
 ------------------------------------------------------------------------
 
 ### Algunos ejemplos
 
--   Sistemas de demanda de bienes o de factores.
--   Vectores autorregresivos (VAR).
--   Modelos macroeconómicos.
--   Modelos de oferta y demanda.
+- Sistemas de demanda de bienes o de factores.
+- Vectores autorregresivos (VAR).
+- Modelos macroeconómicos.
+- Modelos de oferta y demanda.
 
 ------------------------------------------------------------------------
 
 ### Ecuaciones aparentemente no relacionadas
 
--   Ejemplo con dos ecuaciones:
+- Ejemplo con dos ecuaciones:
 
-    $$
-    \begin{aligned}
-    y_{1i} & = \beta_{10} + \beta_{11} x_{1i} + \beta_{12} x_{2i} + u_{1i} \\
-    y_{2i} & = \beta_{20} + \beta_{21} x_{3i} + \beta_{22} x_{4i} + u_{2i}
-    \end{aligned}
-    $$
+  $$\begin{aligned}
+  y_{1i} & = \beta_{10} + \beta_{11} x_{1i} + \beta_{12} x_{2i} + u_{1i} \\
+  y_{2i} & = \beta_{20} + \beta_{21} x_{3i} + \beta_{22} x_{4i} + u_{2i}
+  \end{aligned}$$
 
--   Las variables explicativas $x_{1i}, \dots, x_{4i}$ son exógenas: no están correlacionadas con $u_{1i}$ ni con $u_{2i}$.
+- Las variables explicativas $x_{1i}, \dots, x_{4i}$ son exógenas: no están correlacionadas con $u_{1i}$ ni con $u_{2i}$.
 
--   Los errores $u_{1i}$ y $u_{2i}$ pueden estar correlacionados.
+- Los errores $u_{1i}$ y $u_{2i}$ pueden estar correlacionados.
 
 ------------------------------------------------------------------------
 
 ### Ejemplo: sistemas de demanda
 
--   Demandas individuales de $K$ bienes:
+- Demandas individuales de $K$ bienes:
 
+  $$  \begin{aligned}
+    s_{1i} & = \alpha_{1} + \beta_{11} p_{1i} + \dots + \beta_{1K} p_{Ki} + \gamma_{1} y_i + u_{1i} \\
+    s_{2i} & = \alpha_{2} + \beta_{21} p_{1i} + \dots + \beta_{2K} p_{Ki} + \gamma_{2} y_i + u_{2i} \\
+    \vdots \\
+    s_{Ki} & = \alpha_{K} + \beta_{K1} p_{1i} + \dots + \beta_{KK} p_{Ki} + \gamma_{K} y_i + u_{Ki}
+    \end{aligned}
     $$
-      \begin{aligned}
-      s_{1i} & = \alpha_{1} + \beta_{11} p_{1i} + \dots + \beta_{1K} p_{Ki} + \gamma_{1} y_i + u_{1i} \\
-      s_{2i} & = \alpha_{2} + \beta_{21} p_{1i} + \dots + \beta_{2K} p_{Ki} + \gamma_{2} y_i + u_{2i} \\
-      \vdots \\
-      s_{Ki} & = \alpha_{K} + \beta_{K1} p_{1i} + \dots + \beta_{KK} p_{Ki} + \gamma_{K} y_i + u_{Ki}
-      \end{aligned}
-      $$
 
--   $s_{ji}$: proporción del gasto en el bien $j = 1, \dots, K$ del consumidor $i$; $p_{ij}$: logaritmo del precio del bien $j$; $y_i$: logaritmo de la renta del consumidor $i$.
+- $s_{ji}$: proporción del gasto en el bien $j = 1, \dots, K$ del consumidor $i$; $p_{ij}$: logaritmo del precio del bien $j$; $y_i$: logaritmo de la renta del consumidor $i$.
 
 ------------------------------------------------------------------------
 
 ### Ejemplo: VAR
 
--   Modelo autorregresivo vectorial (VAR) de orden 1 con dos variables:
+- Modelo autorregresivo vectorial (VAR) de orden 1 con dos variables:
 
+  $$  \begin{aligned}
+    y_{1t} & = \alpha_{10} + \alpha_{11} y_{1,t-1} + \alpha_{12} y_{2,t-1} + u_{1t} \\
+    y_{2t} & = \alpha_{20} + \alpha_{21} y_{1,t-1} + \alpha_{22} y_{2,t-1} + u_{2t}
+    \end{aligned}
     $$
-      \begin{aligned}
-      y_{1t} & = \alpha_{10} + \alpha_{11} y_{1,t-1} + \alpha_{12} y_{2,t-1} + u_{1t} \\
-      y_{2t} & = \alpha_{20} + \alpha_{21} y_{1,t-1} + \alpha_{22} y_{2,t-1} + u_{2t}
-      \end{aligned}
-      $$
 
--   Frecuentemente utilizado en macroeconomía para modelar la evolución conjunta de variables como PIB, inflación, desempleo, etc.
+- Frecuentemente utilizado en macroeconomía para modelar la evolución conjunta de variables como PIB, inflación, desempleo, etc.
 
--   Se incluyen suficientes retardos para garantizar que los errores $u_{1t}$ y $u_{2t}$ no estén autocorrelacionados.
+- Se incluyen suficientes retardos para garantizar que los errores $u_{1t}$ y $u_{2t}$ no estén autocorrelacionados.
 
 ------------------------------------------------------------------------
 
 ### Estimación
 
--   Si las variables explicativas son exógenas, se pueden obtener estimaciones consistentes de los parámetros usando MCO ecuación a ecuación.
+- Si las variables explicativas son exógenas, se pueden obtener estimaciones consistentes de los parámetros usando MCO ecuación a ecuación.
 
--   En general, es más eficiente usar estimadores MCG que tengan en cuenta la correlación entre los errores de diferentes ecuaciones.
+- En general, es más eficiente usar estimadores MCG que tengan en cuenta la correlación entre los errores de diferentes ecuaciones.
 
--   MCO es eficiente si no hay correlación entre errores de diferentes ecuaciones o si todas las ecuaciones tienen las mismas explicativas.
+- MCO es eficiente si no hay correlación entre errores de diferentes ecuaciones o si todas las ecuaciones tienen las mismas explicativas.
 
 ------------------------------------------------------------------------
 
 ### Inferencia
 
--   En caso de heteroscedasticidad o autocorrelación se pueden utilizar errores típicos robustos.
+- En caso de heteroscedasticidad o autocorrelación se pueden utilizar errores típicos robustos.
 
--   Se puede estimar la matriz de varianzas y covarianzas conjunta de los estimadores de todas las ecuaciones, de forma que sea posible contrastar restricciones entre los parámetros de diferentes ecuaciones.
+- Se puede estimar la matriz de varianzas y covarianzas conjunta de los estimadores de todas las ecuaciones, de forma que sea posible contrastar restricciones entre los parámetros de diferentes ecuaciones.
 
 ## Modelos de ecuaciones simultáneas
 
--   Modelos multiecuacionales donde las variables explicativas de una o más ecuaciones incluyen variables endógenas.
+- Modelos multiecuacionales donde las variables explicativas de una o más ecuaciones incluyen variables endógenas.
 
--   **Simultaneidad**: las variables endógenas son determinadas conjuntamente por el sistema de ecuaciones, usualmente mediante un mecanismo de equilibrio.
+- **Simultaneidad**: las variables endógenas son determinadas conjuntamente por el sistema de ecuaciones, usualmente mediante un mecanismo de equilibrio.
 
 ------------------------------------------------------------------------
 
 ### Ecuaciones estructurales
 
--   Los modelos de ecuaciones simultáneas están compuestos por dos o más **ecuaciones estructurales**.
+- Los modelos de ecuaciones simultáneas están compuestos por dos o más **ecuaciones estructurales**.
 
--   Cada una describe el comportamiento de un tipo de agentes económicos.
+- Cada una describe el comportamiento de un tipo de agentes económicos.
 
--   El equilibrio determina los valores que toman las endógenas.
+- El equilibrio determina los valores que toman las endógenas.
 
--   Por ejemplo: curva de demanda de compradores de un bien y curva de oferta de los vendedores. El equilibrio de mercado determina el precio y la cantidad en cada periodo.
+- Por ejemplo: curva de demanda de compradores de un bien y curva de oferta de los vendedores. El equilibrio de mercado determina el precio y la cantidad en cada periodo.
 
 ------------------------------------------------------------------------
 
 ### Identificación
 
--   Condiciones que garantizan que existe una única estructura que genera los datos observados.
+- Condiciones que garantizan que existe una única estructura que genera los datos observados.
 
--   Ejemplo: a partir de precios y cantidades observados se estiman los parámetros de la ecuación: $$q_t = \alpha + \beta p_t + u_t$$
+- Ejemplo: a partir de precios y cantidades observados se estiman los parámetros de la ecuación: $$q_t = \alpha + \beta p_t + u_t$$
 
--   ¿Es una ecuación de demanda o de oferta?
+- ¿Es una ecuación de demanda o de oferta?
 
--   Para identificar la ecuación de demanda, se necesita una variable que afecte a la oferta pero no a la demanda.
+- Para identificar la ecuación de demanda, se necesita una variable que afecte a la oferta pero no a la demanda.
 
 ------------------------------------------------------------------------
 
 ### Simultaneidad y equilibrio
 
--   Generalmente, cada ecuación representan el comportamiento de un tipo de agente económico.
+- Generalmente, cada ecuación representan el comportamiento de un tipo de agente económico.
 
--   El equilibrio del sistema determina los valores de las variables endógenas.
+- El equilibrio del sistema determina los valores de las variables endógenas.
 
--   Modelos donde **un agente** decide conjuntamente los valores de un conjunto de variables no presentan problemas de simultaneidad.
+- Modelos donde **un agente** decide conjuntamente los valores de un conjunto de variables no presentan problemas de simultaneidad.
 
 ------------------------------------------------------------------------
 
 ### Estimación
 
--   En modelos de ecuaciones simultáneas, el estimador MCO es inconsistente: **sesgo de simultaneidad**.
+- En modelos de ecuaciones simultáneas, el estimador MCO es inconsistente: **sesgo de simultaneidad**.
 
--   Métodos de estimación de **información limitada**: estimación del sistema ecuación a ecuación (MC2E).
+- Métodos de estimación de **información limitada**: estimación del sistema ecuación a ecuación (MC2E).
 
--   Métodos de estimación de **información completa**: estimación conjunta de todas las ecuaciones del modelo.
+- Métodos de estimación de **información completa**: estimación conjunta de todas las ecuaciones del modelo.
 
--   Con información completa, se pueden obtener estimadores más eficientes pero menos robustos.
+- Con información completa, se pueden obtener estimadores más eficientes pero menos robustos.
 
--   En este curso sólo consideramos la estimación ecuación a ecuación.
+- En este curso sólo consideramos la estimación ecuación a ecuación.

@@ -24,19 +24,19 @@ El archivo `mroz2.xlsx` contiene los salarios y características de una muestra 
 
 [^1]: Mroz (1987), T. A.: "The Sensitivity of an Empirical Model of Married Women’s Hours of Work to Economic and Statistical Assumptions,” *Econometrica* 55, 765-799.
 
--   `wage`: salario por hora, dólares.
+- `wage`: salario por hora, dólares.
 
--   `educ`: años en sistema educativo.
+- `educ`: años en sistema educativo.
 
--   `exper`: años de experiencia laboral.
+- `exper`: años de experiencia laboral.
 
--   `fatheduc`: años en sistema educativo del padre.
+- `fatheduc`: años en sistema educativo del padre.
 
--   `motheduc`: años en sistema educativo de la madre.
+- `motheduc`: años en sistema educativo de la madre.
 
 Para completar esta actividad se deben crear algunas variables adicionales:
 
--   `l_wage`: logaritmo del salario por hora.
+- `l_wage`: logaritmo del salario por hora.
 
 ## Instrucciones
 

@@ -26,11 +26,11 @@ Investigadores del Banco de la Reserva Federal de Boston recopilaron el conjunto
 
 El archivo `hdma2.xlsx` contiene las siguientes variables:
 
--   `deny`: variable ficticia, 1 si se denegó la solicitud.
+- `deny`: variable ficticia, 1 si se denegó la solicitud.
 
--   `piratio`: cociente de pagos mensuales por obligaciones financieras e ingresos al mes.
+- `piratio`: cociente de pagos mensuales por obligaciones financieras e ingresos al mes.
 
--   `black`: variable ficticia, 1 si el solicitante era negro.
+- `black`: variable ficticia, 1 si el solicitante era negro.
 
 ## Instrucciones
 

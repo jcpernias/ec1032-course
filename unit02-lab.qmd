@@ -23,15 +23,15 @@ editor: visual
 
 Los datos recogidos en el fichero `meap.xlsx` son parte de los analizados en [Papke, L. E. (2005), “The Effects of Spending on Test Pass Rates: Evidence from Michigan,” *Journal of Public Economics,* **89**, 821-839](https://linkinghub.elsevier.com/retrieve/pii/S0047272704000908). Se utilizarán para determinar si los gastos realizados por las escuelas de Michigan mejoraron los resultados académicos de los alumnos de primaria. Las variables proporcionan información para los distritos escolares de Michigan en cada año del periodo que va de 1992 a 1998:
 
--   `distid`: identificador del distrito escolar.
+- `distid`: identificador del distrito escolar.
 
--   `yearid`: año, 1992 a 1998.
+- `yearid`: año, 1992 a 1998.
 
--   `math4`: porcentaje de alumnos del distrito escolar que aprueban un examen estandarizado de matemáticas.
+- `math4`: porcentaje de alumnos del distrito escolar que aprueban un examen estandarizado de matemáticas.
 
--   `rexpp`: gastos de los colegios de primaria en cada distrito, en dólares constantes de 1997.
+- `rexpp`: gastos de los colegios de primaria en cada distrito, en dólares constantes de 1997.
 
--   `lunch`: porcentaje de alumnos que reciben ayuda de comedor.
+- `lunch`: porcentaje de alumnos que reciben ayuda de comedor.
 
 Con estas variables se estimarán diferentes modelos donde la variable dependiente es una medida del rendimiento escolar, `math4`, y las variables explicativas miden los recursos financieros empleados en los colegios de cada distrito, `rexpp`, y un indicador muy correlacionado con la renta media de las familias, `lunch`.
 

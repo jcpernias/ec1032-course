@@ -16,52 +16,52 @@ lang: es
 
 ## Bibliografía
 
--   Básica:
+- Básica:
 
-    -   **Wooldridge**: Capítulo 13, secciones 1 y 2.
+  - **Wooldridge**: Capítulo 13, secciones 1 y 2.
 
--   Complementaria:
+- Complementaria:
 
-    -   **Stock y Watson**: Capítulo 13.
+  - **Stock y Watson**: Capítulo 13.
 
 ## Estructura de los datos
 
--   Combinación de cortes transversales, *pooled cross-sections*.
+- Combinación de cortes transversales, *pooled cross-sections*.
 
--   Cada corte transversal:
+- Cada corte transversal:
 
-    -   Es una muestra aleatoria de una población.
+  - Es una muestra aleatoria de una población.
 
-    -   Corresponde a un periodo diferente.
+  - Corresponde a un periodo diferente.
 
 ## Consecuencias para el estimador OLS
 
--   Muestreo aleatorio: **las observaciones son independientes**.
+- Muestreo aleatorio: **las observaciones son independientes**.
 
--   Algunas características de la población pueden cambiar a lo largo del tiempo: **las observaciones no se distribuyen idénticamente**.
+- Algunas características de la población pueden cambiar a lo largo del tiempo: **las observaciones no se distribuyen idénticamente**.
 
 ## Algunas cuestiones prácticas
 
--   Cambios en el término constante: **variables ficticias temporales**.
+- Cambios en el término constante: **variables ficticias temporales**.
 
--   Varianza del término de error puede ser diferente en cada periodo: **heteroscedasticidad**.
+- Varianza del término de error puede ser diferente en cada periodo: **heteroscedasticidad**.
 
--   Cambios en las pendientes: **interacciones con las ficticias temporales**.
+- Cambios en las pendientes: **interacciones con las ficticias temporales**.
 
 ## Contraste de Chow
 
--   Variación de **todos** los parámetros de la función de regresión.
+- Variación de **todos** los parámetros de la función de regresión.
 
--   Tratamiento del término constante.
+- Tratamiento del término constante.
 
--   Heteroscedasticidad.
+- Heteroscedasticidad.
 
 ## Análisis de políticas
 
--   **Experimento natural** o **cuasi-experimento**:
+- **Experimento natural** o **cuasi-experimento**:
 
-    -   Dos cortes transversales: uno obtenido antes de la introducción de una política o un evento y otro despues.
+  - Dos cortes transversales: uno obtenido antes de la introducción de una política o un evento y otro despues.
 
-    -   Dos grupos de observaciones en cada corte transversal: **grupo de control** y **grupo de tratamiento**.
+  - Dos grupos de observaciones en cada corte transversal: **grupo de control** y **grupo de tratamiento**.
 
--   Estimador de **diferencias en diferencias**, *DID*: estima el **efecto promedio del tratamiento**, *ATE*.
+- Estimador de **diferencias en diferencias**, *DID*: estima el **efecto promedio del tratamiento**, *ATE*.

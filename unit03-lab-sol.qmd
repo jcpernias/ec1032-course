@@ -49,9 +49,11 @@ Los datos del archivo `labsup.xlsx` son un subconjunto de los datos utilizados e
 
 ### Instrucciones
 
-Se tratará de determinar cómo afecta el número de hijos a la oferta de trabajo de las mujeres, medida con $\hours$, las horas trabajadas por semana. Para ello se plantea el siguiente modelo de regresión: $$\begin{split}
+Se tratará de determinar cómo afecta el número de hijos a la oferta de trabajo de las mujeres, medida con $\hours$, las horas trabajadas por semana. Para ello se plantea el siguiente modelo de regresión:
+$$\begin{split}
 \hours = \beta_0 + \beta_1\, \kids + \beta_2\, \otherinc   +         \beta_3\, age + \beta_4\, age^2 \\ + \beta_5\, educ + \beta_6\, black +       \beta_7\, hispan + u.
-\end{split}$$ {#eq-1} El parámetro de interés sería $\beta_1$, la pendiente de la variable $\kids$.
+\end{split}$$
+ {#eq-1} El parámetro de interés sería $\beta_1$, la pendiente de la variable $\kids$.
 
 Diversas teorías apuntan a que las variables $\hours$ y $\kids$ se determinan simultáneamente en el seno de la familia. En el caso en que $\kids$ sea endógena, la estimación por MCO de los parámetros de la @eq-1 sería inconsistente. Angrist y Evans (1998) utilizaron como instrumentos las variables $\samesex$ y $\multisecond$, ya que estarían relacionadas con cambios exógenos en el número de hijos de naturaleza aleatoria.
 
@@ -61,7 +63,7 @@ Diversas teorías apuntan a que las variables $\hours$ y $\kids$ se determinan s
 
 ![](img/lab3-ols.png){fig-align="center"}
 
-De acuerdo con la estimación de la pendiente de $\kids$, cada hijo adicional reduce la oferta de trabajo de la madre en algo más de 2 horas a la seman. Este efecto es significativamente distinto de $0$ para un nivel de significación del $5\%$ (valor $p < 0.01$).
+De acuerdo con la estimación de la pendiente de $\kids$, cada hijo adicional reduce la oferta de trabajo de la madre en algo más de 2 horas a la semana. Este efecto es significativamente distinto de $0$ para un nivel de significación del $5\%$ (valor $p < 0.01$).
 
 Se ha incluido por error la variable ficticia $\hispan$ en la especificación de la oferta de trabajo. Esto provoca una situación de colinealidad perfecta, dado que en todas las observaciones o bien $\black = 1$ o bien $\hispan = 1$. En lo que resta no se utiliza la variable $\hispan$.
 
@@ -87,7 +89,7 @@ La variable `uhat_first`, que contiene los residuos de la primera etapa, se aña
 
 ![](img/lab3-control.png){fig-align="center"}
 
-La endogeneidad de $\kids$ se verifica con un contraste de significación individual de los residuos de la primera etapa. En este caso, el valor absoluto del estadístico $t$ es muy bajo, $0.36$, y no se puede rechazar la hipótesis nula de no significación de los `uhat_first` para $\alpha = 5\%$ (valor $p = 0.715$). Por tanto, no hay fuerte evidencia de que la variable $\kids$ sea endógena en la ecuación de la oferta de trabajo.
+La endogeneidad de $\kids$ se verifica con un contraste de significación individual de los residuos de la primera etapa. En este caso, el valor absoluto del estadístico $t$ es muy bajo, $0.36$, y no se puede rechazar la hipótesis nula de no significación de `uhat_first` para $\alpha = 5\%$ (valor $p = 0.715$). Por tanto, no hay fuerte evidencia de que la variable $\kids$ sea endógena en la ecuación de la oferta de trabajo.
 
 ::: question
 4.  Estime los parámetros de la @eq-1 por mínimos cuadrados en 2 etapas, MC2E, usando $\samesex$ y $\multisecond$ como instrumentos. Compare las estimaciones de los parámetros por MC2E con las obtenidas antes con MCO.

@@ -24,25 +24,25 @@ La información contenida en el fichero `card2.xlsx` es un subconjunto de los da
 
 [^1]: D. Card (1995), "Using Geographic Variation in College Proximity to Estimate the Return to Schooling," in Aspects of Labour Market Behavior: Essays in Honour of John Vanderkamp. Ed. L.N. Christophides, E.K. Grant, and R. Swidinsky, 201-222. Toronto: University of Toronto Press.
 
--   `wage`: salario por hora, centavos.
+- `wage`: salario por hora, centavos.
 
--   `educ`: años de educación.
+- `educ`: años de educación.
 
--   `exper`: años de experiencia laboral (experiencia potencial: edad - 6 - `educ`).
+- `exper`: años de experiencia laboral (experiencia potencial: edad - 6 - `educ`).
 
--   `black`: variable ficticia, 1 para trabajadores negros.
+- `black`: variable ficticia, 1 para trabajadores negros.
 
--   `south`: variable ficticia, 1 para trabajadores que viven en estados del sur.
+- `south`: variable ficticia, 1 para trabajadores que viven en estados del sur.
 
--   `urban`: variable ficticia, 1 para trabajadores que viven en zonas urbanas.
+- `urban`: variable ficticia, 1 para trabajadores que viven en zonas urbanas.
 
--   `IQ`: resultados de una prueba de inteligencia.
+- `IQ`: resultados de una prueba de inteligencia.
 
--   `KWW`: resultados de una prueba psicotécnica de aptitudes para el trabajo.
+- `KWW`: resultados de una prueba psicotécnica de aptitudes para el trabajo.
 
 Para completar esta actividad es necesario crear algunas variables adicionales:
 
--   `l_wage`: logaritmo del salario por hora.
+- `l_wage`: logaritmo del salario por hora.
 
 ### Instrucciones
 

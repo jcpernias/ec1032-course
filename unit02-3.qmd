@@ -29,8 +29,10 @@ lang: es
 
 - Modelo de efectos inobservables con $T$ periodos.
 
-- Modelo con una variable explicativa, $x_{it}$: $$y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
-  \beta x_{it} + a_i + u_{it}$$ para $i=1, \dots, N$ y $t = 1, \dots, T$.
+- Modelo con una variable explicativa, $x_{it}$:
+  $$y_{it} = \alpha + \delta_2 d2_t + \delta_3 d3_t+ \dots + \delta_T dT_t + 
+  \beta x_{it} + a_i + u_{it}$$
+  para $i=1, \dots, N$ y $t = 1, \dots, T$.
 
 ## Regresión con variables ficticias
 

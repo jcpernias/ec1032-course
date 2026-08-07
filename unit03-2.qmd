@@ -17,27 +17,25 @@ lang: es
 
 ## Bibliografía
 
--   Básica:
+- Básica:
 
-    -   **Wooldridge**: Capítulo 9, sección 2, y capítulo 15.
+  - **Wooldridge**: Capítulo 9, sección 2, y capítulo 15.
 
--   Complementaria:
+- Complementaria:
 
-    -   **Stock y Watson**: Capítulo 12.
+  - **Stock y Watson**: Capítulo 12.
 
 ## Ejemplo
 
 $\newcommand{\Var}[1]{\mathit{#1}}\DeclareMathOperator{\cov}{cov}$
 
-$$
-\log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \gamma\, \Var{exper} + u,
-$$
+$$\log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \gamma\, \Var{exper} + u,$$
 
--   $\Var{educ}$ es endógena: $\cov(\Var{educ}, u) \neq 0$.
+- $\Var{educ}$ es endógena: $\cov(\Var{educ}, u) \neq 0$.
 
--   $\Var{exper}$ es exógena: $\cov(\Var{exper}, u) = 0$.
+- $\Var{exper}$ es exógena: $\cov(\Var{exper}, u) = 0$.
 
--   Variables instrumentales: $\Var{fatheduc}$ y $\Var{motheduc}$.
+- Variables instrumentales: $\Var{fatheduc}$ y $\Var{motheduc}$.
 
 ------------------------------------------------------------------------
 
@@ -51,29 +49,25 @@ El estimador MCO es inconsistente cuando hay variables explicativas endógenas.
 
 ### Regresión de la primera etapa
 
-$$
-\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.
-$$
+$$\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.$$
 
--   La variable dependiente es la explicativa endógena.
+- La variable dependiente es la explicativa endógena.
 
--   Los regresores son las explicativas exógenas y los instrumentos.
+- Los regresores son las explicativas exógenas y los instrumentos.
 
--   Todos los regresores son exógenos, por lo que se puede estimar por MCO.
+- Todos los regresores son exógenos, por lo que se puede estimar por MCO.
 
 ------------------------------------------------------------------------
 
 ### Validez de los instrumentos
 
-$$
-\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.
-$$
+$$\Var{educ} = \pi_0 + \pi_1\, \Var{exper} + \pi_2\, \Var{fatheduc} + \pi_3\, \Var{motheduc} + v.$$
 
--   Los instrumentos son válidos si tienen capacidad explicativa en la regresión de la primera etapa.
+- Los instrumentos son válidos si tienen capacidad explicativa en la regresión de la primera etapa.
 
--   Se puede verificar con un contraste $F$ sobre $H_0: \pi_2 = \pi_3 = 0$.
+- Se puede verificar con un contraste $F$ sobre $H_0: \pi_2 = \pi_3 = 0$.
 
--   Valores del contraste $F$ inferiores a $10$ indican que los **instrumentos son débiles**.
+- Valores del contraste $F$ inferiores a $10$ indican que los **instrumentos son débiles**.
 
 ------------------------------------------------------------------------
 
@@ -83,19 +77,17 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ## Mínimos cuadrados en dos etapas
 
--   Se usa MCO para estimar la regresión de la primera etapa y se obtienen las predicciones de la explicativa endógena. $$
-    \Var{ed\hat{u}c} = \hat{\pi}_0 + \hat{\pi}_1 \,\Var{exper} + \hat{\pi}_2 \,\Var{fatheduc} + \hat{\pi}_3 \,\Var{motheduc}.
-    $$
+- Se usa MCO para estimar la regresión de la primera etapa y se obtienen las predicciones de la explicativa endógena.
+  $$\Var{ed\hat{u}c} = \hat{\pi}_0 + \hat{\pi}_1 \,\Var{exper} + \hat{\pi}_2 \,\Var{fatheduc} + \hat{\pi}_3 \,\Var{motheduc}.$$
 
--   Se reemplaza la explicativa endógena por su predicción y se estima por MCO: $$
-    \log(\Var{wage}) = \alpha + \beta\,\Var{ed\hat{u}c} + \gamma\, \Var{exper} + \mathrm{error}.
-    $$
+- Se reemplaza la explicativa endógena por su predicción y se estima por MCO:
+  $$\log(\Var{wage}) = \alpha + \beta\,\Var{ed\hat{u}c} + \gamma\, \Var{exper} + \mathrm{error}.$$
 
 ------------------------------------------------------------------------
 
--   La estimación por MCO de la segunda etapa produce estimadores consistentes de los parámetros.
+- La estimación por MCO de la segunda etapa produce estimadores consistentes de los parámetros.
 
--   Los errores típicos de MCO no son correctos porque no tienen en cuenta que $\Var{ed\hat{u}c}$ se obtiene a partir de una estimación previa.
+- Los errores típicos de MCO no son correctos porque no tienen en cuenta que $\Var{ed\hat{u}c}$ se obtiene a partir de una estimación previa.
 
 ------------------------------------------------------------------------
 
@@ -103,13 +95,12 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ## Contraste de endogeneidad
 
--   Si $\Var{educ}$ no es endógena no sería necesario usar MC2E ya que MCO también sería consistente y más eficiente.
+- Si $\Var{educ}$ no es endógena no sería necesario usar MC2E ya que MCO también sería consistente y más eficiente.
 
--   Contraste de endogeneidad: se incluyen los residuos de la primera etapa, $\hat{v}$, y se estima por MCO. $$
-    \log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \theta \hat{v} + \gamma\, \Var{exper} + \mathrm{error}.
-    $$
+- Contraste de endogeneidad: se incluyen los residuos de la primera etapa, $\hat{v}$, y se estima por MCO.
+  $$\log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \theta \hat{v} + \gamma\, \Var{exper} + \mathrm{error}.$$
 
--   Si $\theta = 0$, $\Var{educ}$ es exógena. Esa hipótesis puede contrastarse a partir de la estimación por MCO.
+- Si $\theta = 0$, $\Var{educ}$ es exógena. Esa hipótesis puede contrastarse a partir de la estimación por MCO.
 
 ------------------------------------------------------------------------
 
@@ -117,13 +108,13 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ## Contraste de sobreidentificación
 
--   **Cuando hay más de un instrumento** es posible contrastar si algún instrumento no es exógeno.
+- **Cuando hay más de un instrumento** es posible contrastar si algún instrumento no es exógeno.
 
--   Se basa en una regresión auxiliar de los residuos de MC2E con respecto a todas las explicativas exógenas y todos los instrumentos.
+- Se basa en una regresión auxiliar de los residuos de MC2E con respecto a todas las explicativas exógenas y todos los instrumentos.
 
--   Si se cumplen todas las condiciones de exogeneidad, el ajuste de la regresión auxiliar sería prácticamente nulo.
+- Si se cumplen todas las condiciones de exogeneidad, el ajuste de la regresión auxiliar sería prácticamente nulo.
 
--   **Contraste de Sargan**: bajo la hipótesis nula $N R^2 \sim \chi^2$ con grados de libertad iguales al número de instrumentos menos el número de explicativas endógenas.
+- **Contraste de Sargan**: bajo la hipótesis nula $N R^2 \sim \chi^2$ con grados de libertad iguales al número de instrumentos menos el número de explicativas endógenas.
 
 ------------------------------------------------------------------------
 
@@ -133,6 +124,6 @@ Contraste de Sargan: $428 \times 0.000897 = 0.38$. Valor $p = 0.54$.
 
 ## ¿Dónde encontrar buenos instrumentos?
 
--   Teoría económica.
+- Teoría económica.
 
--   Encontrar alguna fuente exógena que provoque variaciones en la explicativa endógena.
+- Encontrar alguna fuente exógena que provoque variaciones en la explicativa endógena.

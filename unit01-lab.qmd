@@ -24,23 +24,23 @@ editor: visual
 
 El fichero `wages78_85.gdt` contiene información sobre salarios y características de dos muestras aleatorias de trabajadores estadounidenses, obtenidas en los años 1978 y 1985.
 
--   `wage`: salario por hora, dólares.
+- `wage`: salario por hora, dólares.
 
--   `year`: año al que corresponde la observación, 78 o 85.
+- `year`: año al que corresponde la observación, 78 o 85.
 
--   `educ`: años de educación.
+- `educ`: años de educación.
 
--   `female`: variable ficticia, 1 para las observaciones que corresponden a mujeres.
+- `female`: variable ficticia, 1 para las observaciones que corresponden a mujeres.
 
--   `union`: variable ficticia, 1 para los trabajadores afiliados a un sindicato.
+- `union`: variable ficticia, 1 para los trabajadores afiliados a un sindicato.
 
 Para completar esta actividad es necesario crear algunas variables adicionales:
 
--   `l_wage`: logaritmo del salario por hora.
+- `l_wage`: logaritmo del salario por hora.
 
--   `y85`: variable ficticia, 1 para las observaciones de 1985.
+- `y85`: variable ficticia, 1 para las observaciones de 1985.
 
--   `y85_educ`, `y85_female`, `y85_union`: interacciones de la variable `y85` con las variables `educ`, `female` y `union`, respectivamente.
+- `y85_educ`, `y85_female`, `y85_union`: interacciones de la variable `y85` con las variables `educ`, `female` y `union`, respectivamente.
 
 ### Instrucciones
 
@@ -56,23 +56,23 @@ Para determinar la influencia de un cambio en las prestaciones por accidentes la
 
 El fichero `inj.gdt` contiene las siguientes variables:
 
--   `durat`: duración de la baja, semanas.
+- `durat`: duración de la baja, semanas.
 
--   `after`: variable ficticia, 1 para las observaciones posteriores al cambio normativo.
+- `after`: variable ficticia, 1 para las observaciones posteriores al cambio normativo.
 
--   `high`: variable ficticia, 1 para los trabajadores con salarios altos.
+- `high`: variable ficticia, 1 para los trabajadores con salarios altos.
 
--   `male`: variable ficticia, 1 para los hombres.
+- `male`: variable ficticia, 1 para los hombres.
 
--   `inj_head`, `inj_neck`, ..., `inj_occdis`: variables ficticias para los distintos tipos de lesiones. Categoría omitida: otras lesiones.
+- `inj_head`, `inj_neck`, ..., `inj_occdis`: variables ficticias para los distintos tipos de lesiones. Categoría omitida: otras lesiones.
 
--   `manuf`, `constr`: variables ficticias para los sectores económicos. Categoría omitida: servicios.
+- `manuf`, `constr`: variables ficticias para los sectores económicos. Categoría omitida: servicios.
 
 Se necesitarán también las siguientes variables:
 
--   `l_durat`: logaritmo de `durat`.
+- `l_durat`: logaritmo de `durat`.
 
--   `after_high`: interacción de `after` y `high.`
+- `after_high`: interacción de `after` y `high.`
 
 ### Instrucciones
 

@@ -17,123 +17,123 @@ lang: es
 
 ## Bibliografía
 
--   Básica:
+- Básica:
 
-    -   **Wooldridge**: Sección 5 del capítulo 7, sección 5 del capítulo 8 y sección 1 del capítulo 17.
+  - **Wooldridge**: Sección 5 del capítulo 7, sección 5 del capítulo 8 y sección 1 del capítulo 17.
 
--   Complementaria:
+- Complementaria:
 
-    -   **Stock y Watson**: Capítulo 12.
+  - **Stock y Watson**: Capítulo 12.
 
 $\newcommand{\xi}{\boldsymbol{x}_i}$
 
 ## Modelos de variable latente
 
--   Sea $y_i^*$ una **variable latente**, que no puede observarse y viene determinada por: $$y^*_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i,$$ donde $u_i$ es un término de error independiente de $\xi$ y con distribución normal $N(0, 1)$.
+- Sea $y_i^*$ una **variable latente**, que no puede observarse y viene determinada por: $$y^*_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + u_i,$$ donde $u_i$ es un término de error independiente de $\xi$ y con distribución normal $N(0, 1)$.
 
 ------------------------------------------------------------------------
 
 ### Modelo probit
 
--   Sólo se observa la variable $y_i$: $$y_i = \begin{cases} 1 & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
+- Sólo se observa la variable $y_i$: $$y_i = \begin{cases} 1 & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
 
--   Entonces $y_i$ sigue un modelo probit: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
+- Entonces $y_i$ sigue un modelo probit: $$P(y_i = 1| \xi) = \Phi(\beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki}).$$
 
 ------------------------------------------------------------------------
 
 ### Otros modelos
 
--   Si la distribución de $u_i$ es logística, se obtiene un modelo logit.
+- Si la distribución de $u_i$ es logística, se obtiene un modelo logit.
 
--   Los modelos de variable latente son fáciles de extender a casos más complicados.
+- Los modelos de variable latente son fáciles de extender a casos más complicados.
 
--   Ejemplo: en el **modelo tobit**, solo se observan valores positivos de la variable latente y 0 en caso de que $y^*_i \leq 0$: $$y_i = \begin{cases} y^*_i & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
+- Ejemplo: en el **modelo tobit**, solo se observan valores positivos de la variable latente y 0 en caso de que $y^*_i \leq 0$: $$y_i = \begin{cases} y^*_i & \text{si $y^*_i > 0$,} \\ 0 & \text{si $y^*_i \leq 0$.}\end{cases}$$
 
 ## Medidas de bondad del ajuste
 
--   Predicción de las probabilidades de ocurrencia: $$\hat{p}_i = G(\hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}).$$
+- Predicción de las probabilidades de ocurrencia: $$\hat{p}_i = G(\hat{\beta}_0 + \hat{\beta}_1 x_{1i} + \dots + \hat{\beta}_k x_{ki}).$$
 
--   Usualmente la predicción de la variable dependiente se construye con la siguiente regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.5$,} \\ 0 & \text{si $\hat{p}_i \lt 0.5$.} \end{cases}$$
+- Usualmente la predicción de la variable dependiente se construye con la siguiente regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.5$,} \\ 0 & \text{si $\hat{p}_i \lt 0.5$.} \end{cases}$$
 
 ------------------------------------------------------------------------
 
 ### Porcentaje de predicciones correctas
 
--   Clasificación de las predicciones: $$\begin{array}{c|cc}
-    &\hat{y}_i = 0 & \hat{y}_i = 1\\
-    \hline
-    y_i = 0 & n_{00} & n_{01} \\
-    y_i = 1 & n_{10} & n_{11} \\
-    \end{array}$$
--   Porcentaje de predicciones correctas: $100 (n_{00} + n_{11}) / N$.
+- Clasificación de las predicciones: $$\begin{array}{c|cc}
+  &\hat{y}_i = 0 & \hat{y}_i = 1\\
+  \hline
+  y_i = 0 & n_{00} & n_{01} \\
+  y_i = 1 & n_{10} & n_{11} \\
+  \end{array}$$
+- Porcentaje de predicciones correctas: $100 (n_{00} + n_{11}) / N$.
 
 ------------------------------------------------------------------------
 
 ### Pseudo R cuadrado
 
--   McFadden propuso una medida de ajuste para modelos estimados por máxima verosimilitud.
--   Propone un cálculo similar al $R^2$ pero basado en el valor de la función de verosimilitud: $$\text{pseudo }R^2 = 1 - \frac{\mathcal{L}_{\max}}{\mathcal{L_0}}.$$
--   Al igual que el $R^2$ está acotado entre 0 y 1, pero es más difícil de interpretar.
+- McFadden propuso una medida de ajuste para modelos estimados por máxima verosimilitud.
+- Propone un cálculo similar al $R^2$ pero basado en el valor de la función de verosimilitud: $$\text{pseudo }R^2 = 1 - \frac{\mathcal{L}_{\max}}{\mathcal{L_0}}.$$
+- Al igual que el $R^2$ está acotado entre 0 y 1, pero es más difícil de interpretar.
 
 ------------------------------------------------------------------------
 
 ### Limitaciones
 
--   La capacidad predictiva se resiente cuando uno de los dos valores de $y_i$ es poco frecuente.
+- La capacidad predictiva se resiente cuando uno de los dos valores de $y_i$ es poco frecuente.
 
--   Es posible obtener un porcentaje correcto de predicciones muy alto aún cuando hay muchos errores de predicción para uno de los valores.
+- Es posible obtener un porcentaje correcto de predicciones muy alto aún cuando hay muchos errores de predicción para uno de los valores.
 
 ------------------------------------------------------------------------
 
 ### Medidas alternativas
 
--   Algunos autores proponen considerar los porcentajes de predicciones correctas para cada valor.
+- Algunos autores proponen considerar los porcentajes de predicciones correctas para cada valor.
 
--   Otra propuesta es cambiar el umbral para obtener las predicciones. Por ejemplo, si $y_i = 1$ en solo el $10\%$ de las observaciones, se puede usar la regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.1$}, \\ 0 & \text{si $\hat{p}_i \lt 0.1$.} \end{cases}$$
+- Otra propuesta es cambiar el umbral para obtener las predicciones. Por ejemplo, si $y_i = 1$ en solo el $10\%$ de las observaciones, se puede usar la regla: $$\hat{y}_i = \begin{cases}1 & \text{si $\hat{p}_i \geq 0.1$}, \\ 0 & \text{si $\hat{p}_i \lt 0.1$.} \end{cases}$$
 
 ## Error de especificación
 
--   El método de máxima verosimilitud proporciona estimadores con buenas propiedades estadísticas si se cumplen determinados supuestos.
+- El método de máxima verosimilitud proporciona estimadores con buenas propiedades estadísticas si se cumplen determinados supuestos.
 
--   Estos supuestos son mucho más exigentes que los que necesitamos para garantizar la consistencia de MCO.
+- Estos supuestos son mucho más exigentes que los que necesitamos para garantizar la consistencia de MCO.
 
--   Generalmente, es complicado adaptar máxima verosimilitud a otras situaciones.
+- Generalmente, es complicado adaptar máxima verosimilitud a otras situaciones.
 
 ------------------------------------------------------------------------
 
 ### Endogeneidad
 
--   El modelo lineal de probabilidad puede estimarse por MC2E si alguna explicativa es endógena.
--   En el caso de los modelos probit y logit, es más difícil obtener estimaciones consistentes.
+- El modelo lineal de probabilidad puede estimarse por MC2E si alguna explicativa es endógena.
+- En el caso de los modelos probit y logit, es más difícil obtener estimaciones consistentes.
 
 ------------------------------------------------------------------------
 
 ### Muestreo no aleatorio
 
--   Cuando en la población la ocurrencia de un evento es muy rara, puede que en una muestra aleatoria no se observe nunca el caso $y_i = 1$.
--   En esas condiciones, a veces se usa muestreo no aleatorio de forma que estén sobrerrepresentados los casos en que $y_i = 1$.
--   Cuando el muestreo depende de los valores que toma la variable dependiente se produce **sesgo de selección muestral**.
+- Cuando en la población la ocurrencia de un evento es muy rara, puede que en una muestra aleatoria no se observe nunca el caso $y_i = 1$.
+- En esas condiciones, a veces se usa muestreo no aleatorio de forma que estén sobrerrepresentados los casos en que $y_i = 1$.
+- Cuando el muestreo depende de los valores que toma la variable dependiente se produce **sesgo de selección muestral**.
 
 ------------------------------------------------------------------------
 
 ### Distribución
 
--   Las propiedades de MCO al estimar un modelo lineal de probabilidad no dependen de la distribución del término de error.
--   La aplicación del método de máxima verosimilitud requiere de la especificación completa de la distribución del término de error.
--   Errores en la especificación de la distribución pueden producir estimaciones inconsistentes.
+- Las propiedades de MCO al estimar un modelo lineal de probabilidad no dependen de la distribución del término de error.
+- La aplicación del método de máxima verosimilitud requiere de la especificación completa de la distribución del término de error.
+- Errores en la especificación de la distribución pueden producir estimaciones inconsistentes.
 
 ## Otras estructuras de datos
 
--   Aplicación a cortes transversales combinados de los modelos de probabilidad es trivial.
+- Aplicación a cortes transversales combinados de los modelos de probabilidad es trivial.
 
--   Con datos de panel, el modelo lineal de probabilidad puede estimarse por efectos fijos o aleatorios.
+- Con datos de panel, el modelo lineal de probabilidad puede estimarse por efectos fijos o aleatorios.
 
--   Los modelos probit y logit no se extienden fácilmente a datos de panel.
+- Los modelos probit y logit no se extienden fácilmente a datos de panel.
 
 ## Otros modelos con variable dependiente limitada
 
--   Modelos ordinales: $y_i$ es una escala de Likert.
+- Modelos ordinales: $y_i$ es una escala de Likert.
 
--   Modelos multinomiales: decisiones entre más de dos opciones (elección del modo de transporte).
+- Modelos multinomiales: decisiones entre más de dos opciones (elección del modo de transporte).
 
--   Otros: tobit, Poisson, truncamiento, etc.
+- Otros: tobit, Poisson, truncamiento, etc.

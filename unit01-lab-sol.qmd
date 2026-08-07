@@ -59,9 +59,7 @@ $$H_0:
 
 Modelo de regresión:
 
-$$
-\log(durat) = \beta_0 + \beta_1\, after + \beta_2\, high + \beta_3\, after \cdot high + u
-$$
+$$\log(durat) = \beta_0 + \beta_1\, after + \beta_2\, high + \beta_3\, after \cdot high + u$$
 
 Resultados de la estimación MCO, usando errores típicos robustos a heteroscedasticidad:
 
