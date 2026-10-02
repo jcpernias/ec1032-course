@@ -49,11 +49,9 @@ Los datos del archivo `labsup.xlsx` son un subconjunto de los datos utilizados e
 
 ### Instrucciones
 
-Se tratará de determinar cómo afecta el número de hijos a la oferta de trabajo de las mujeres, medida con $\hours$, las horas trabajadas por semana. Para ello se plantea el siguiente modelo de regresión:
-$$\begin{split}
+Se tratará de determinar cómo afecta el número de hijos a la oferta de trabajo de las mujeres, medida con $\hours$, las horas trabajadas por semana. Para ello se plantea el siguiente modelo de regresión: $$\begin{split}
 \hours = \beta_0 + \beta_1\, \kids + \beta_2\, \otherinc   +         \beta_3\, age + \beta_4\, age^2 \\ + \beta_5\, educ + \beta_6\, black +       \beta_7\, hispan + u.
-\end{split}$$
- {#eq-1} El parámetro de interés sería $\beta_1$, la pendiente de la variable $\kids$.
+\end{split}$$ {#eq-1} El parámetro de interés sería $\beta_1$, la pendiente de la variable $\kids$.
 
 Diversas teorías apuntan a que las variables $\hours$ y $\kids$ se determinan simultáneamente en el seno de la familia. En el caso en que $\kids$ sea endógena, la estimación por MCO de los parámetros de la @eq-1 sería inconsistente. Angrist y Evans (1998) utilizaron como instrumentos las variables $\samesex$ y $\multisecond$, ya que estarían relacionadas con cambios exógenos en el número de hijos de naturaleza aleatoria.
 

@@ -77,11 +77,9 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 ## Mínimos cuadrados en dos etapas
 
-- Se usa MCO para estimar la regresión de la primera etapa y se obtienen las predicciones de la explicativa endógena.
-  $$\Var{ed\hat{u}c} = \hat{\pi}_0 + \hat{\pi}_1 \,\Var{exper} + \hat{\pi}_2 \,\Var{fatheduc} + \hat{\pi}_3 \,\Var{motheduc}.$$
+- Se usa MCO para estimar la regresión de la primera etapa y se obtienen las predicciones de la explicativa endógena. $$\Var{ed\hat{u}c} = \hat{\pi}_0 + \hat{\pi}_1 \,\Var{exper} + \hat{\pi}_2 \,\Var{fatheduc} + \hat{\pi}_3 \,\Var{motheduc}.$$
 
-- Se reemplaza la explicativa endógena por su predicción y se estima por MCO:
-  $$\log(\Var{wage}) = \alpha + \beta\,\Var{ed\hat{u}c} + \gamma\, \Var{exper} + \mathrm{error}.$$
+- Se reemplaza la explicativa endógena por su predicción y se estima por MCO: $$\log(\Var{wage}) = \alpha + \beta\,\Var{ed\hat{u}c} + \gamma\, \Var{exper} + \mathrm{error}.$$
 
 ------------------------------------------------------------------------
 
@@ -97,8 +95,7 @@ El contraste $F$ de significación conjunta de los instrumentos es mayor que $10
 
 - Si $\Var{educ}$ no es endógena no sería necesario usar MC2E ya que MCO también sería consistente y más eficiente.
 
-- Contraste de endogeneidad: se incluyen los residuos de la primera etapa, $\hat{v}$, y se estima por MCO.
-  $$\log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \theta \hat{v} + \gamma\, \Var{exper} + \mathrm{error}.$$
+- Contraste de endogeneidad: se incluyen los residuos de la primera etapa, $\hat{v}$, y se estima por MCO. $$\log(\Var{wage}) = \alpha + \beta\,\Var{educ} + \theta \hat{v} + \gamma\, \Var{exper} + \mathrm{error}.$$
 
 - Si $\theta = 0$, $\Var{educ}$ es exógena. Esa hipótesis puede contrastarse a partir de la estimación por MCO.
 
